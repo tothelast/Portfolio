@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #184381;
-    --secondary-color: #1b4999;
-    --accent-color: #3182ce;
+    --primary-color: #1e6dae;
+    --secondary-color: #2d74ed;
+    --accent-color: #128dff;
     --text-color: #1a202c;
     --light-bg: #f7fafc;
 }
@@ -243,6 +243,10 @@ footer {
 .experience-item h3 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+}
+
+.project-card h3 {
+    color: var(--primary-color);
 }
 
 .experience-item p {
