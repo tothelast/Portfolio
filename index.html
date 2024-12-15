@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--
+    Head Section
+    - Contains meta information, title, and external dependencies
+    - Includes particle.js and Font Awesome libraries
+    - Links to custom CSS
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garegin Mazmanyan - Portfolio</title>
-    <!-- External Dependencies -->
+    <title>Garegin Mazmanyan</title>
+
+    <!-- External Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <!-- CSS -->
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
+
 <body>
+    <!-- Particles.js Container -->
     <div id="particles-js" class="particles-container"></div>
-    
+
+    <!--
+        Header Section
+        - Contains profile information and social links
+        - All elements have animation on scroll
+    -->
     <header>
         <div class="container">
             <img src="assets/images/me.jpeg" alt="Profile Picture" class="profile-img animate-on-scroll">
             <h1 class="animate-on-scroll">Garegin Mazmanyan</h1>
             <p class="animate-on-scroll">Full-Stack Engineer with Data Science Expertise</p>
+
             <div class="social-links animate-on-scroll">
                 <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
@@ -30,7 +46,13 @@
             </div>
         </div>
     </header>
-    
+
+
+    <!--
+        Navigation Section
+        - Main navigation menu
+        - Contains links to all major sections
+    -->
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
@@ -41,17 +63,28 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-    
+
+
+    <!--
+        About Section
+        - Personal introduction and background
+        - Contains link to full resume
+    -->
     <section id="about">
         <div class="container">
             <div class="animate-on-scroll">
                 <h2 class="section-title">About Me</h2>
                 <p>I'm a computer science student, now pursuing my master's at the University of Arizona, combining
-                    expertise in full-stack development and machine learning. Proficient in multiple programming languages including Python, Java, and JavaScript, I specialize in building scalable
-                    web applications and developing AI-driven solutions. My experience spans from implementing full-stack applications using
-                    React and Node.js to designing machine learning models with TensorFlow and scikit-learn. With a strong foundation in
-                    cloud technologies and AWS services, I focus on creating innovative solutions that combine modern web development
+                    expertise in full-stack development and machine learning. Proficient in multiple programming
+                    languages including Python, Java, and JavaScript, I specialize in building scalable
+                    web applications and developing AI-driven solutions. My experience spans from implementing
+                    full-stack applications using
+                    React and Node.js to designing machine learning models with TensorFlow and scikit-learn. With a
+                    strong foundation in
+                    cloud technologies and AWS services, I focus on creating innovative solutions that combine modern
+                    web development
                     practices with advanced data science techniques to deliver real-world impact.</p>
+
                 <div class="social-links" style="margin-top: 2rem;">
                     <a href="https://acrobat.adobe.com/link/track?uri=urn:aaid:scds:US:cc9ce9f9-824a-3b83-8fba-32d6daf538d7"
                         target="_blank" class="btn-primary">
@@ -62,12 +95,19 @@
         </div>
     </section>
 
-    
+
+    <!--
+        Skills Section
+        - Grid layout of technical skills
+        - Organized by category
+        - Each category is an animated card
+    -->
     <section id="skills" class="bg-light">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Technical Skills</h2>
+
             <div class="project-grid">
-                <!-- Programming Languages -->
+                <!-- Programming Languages Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Programming Languages</h3>
                     <div class="tech-stack">
@@ -84,7 +124,7 @@
                     </div>
                 </div>
 
-                <!-- Web Technologies -->
+                <!-- Web Technologies Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Web Development</h3>
                     <div class="tech-stack">
@@ -99,7 +139,7 @@
                     </div>
                 </div>
 
-                <!-- Machine Learning -->
+                <!-- Machine Learning Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Machine Learning & AI</h3>
                     <div class="tech-stack">
@@ -114,7 +154,7 @@
                     </div>
                 </div>
 
-                <!-- Cloud & DevOps -->
+                <!-- Cloud & DevOps Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Cloud & DevOps</h3>
                     <div class="tech-stack">
@@ -129,7 +169,7 @@
                     </div>
                 </div>
 
-                <!-- Databases -->
+                <!-- Databases Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Databases</h3>
                     <div class="tech-stack">
@@ -142,7 +182,7 @@
                     </div>
                 </div>
 
-                <!-- Development Tools -->
+                <!-- Development Tools Card -->
                 <div class="project-card animate-on-scroll">
                     <h3>Development Tools</h3>
                     <div class="tech-stack">
@@ -160,29 +200,39 @@
     </section>
 
 
+    <!--
+        Experience Section
+        - Lists work experience in chronological order
+        - Each experience item is animated
+    -->
     <section id="experience">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Work Experience</h2>
 
+            <!-- Current Position -->
             <div class="experience-item animate-on-scroll">
                 <h3>Junior Software Engineer Intern - AEYESAFE</h3>
                 <p>October 2024 - Present</p>
                 <ul>
-                    <li>Streamlined workflows by containerizing and deploying applications using Docker, ensuring consistent
+                    <li>Streamlined workflows by containerizing and deploying applications using Docker, ensuring
+                        consistent
                         development and testing processes</li>
                     <li>Designed and implemented scalable cloud infrastructure using AWS services (ECS, Fargate, SQS,
                         DynamoDB, ECR, ElastiCache)</li>
                     <li>Created CI/CD pipeline with YAML scripts, reducing deployment time by 50%</li>
-                    <li>Implemented secure user authentication and API interactions using AWS Lambda and API Gateway</li>
+                    <li>Implemented secure user authentication and API interactions using AWS Lambda and API Gateway
+                    </li>
                 </ul>
             </div>
 
+            <!-- Previous Positions -->
             <div class="experience-item animate-on-scroll">
                 <h3>Course Coordinator - University of Arizona</h3>
                 <p>August 2024 - December 2024</p>
                 <ul>
                     <li>Coordinated curriculum across multiple sections for 300+ students in software development</li>
-                    <li>Developed Python scripts for grading automation and data tracking, improving workflow efficiency by
+                    <li>Developed Python scripts for grading automation and data tracking, improving workflow efficiency
+                        by
                         30%</li>
                     <li>Created automated scheduling tools and managed course logistics</li>
                     <li>Collaborated with faculty to enhance student learning experience</li>
@@ -203,108 +253,124 @@
         </div>
     </section>
 
-<section id="certifications" class="bg-light">
-    <div class="container">
-        <h2 class="section-title animate-on-scroll">Certifications</h2>
-        <div class="certification-grid">
-            <!-- AWS Cloud Practitioner -->
-            <div class="certification-card animate-on-scroll">
-                <div class="certification-card-inner">
-                    <div class="certification-card-front">
-                        <div class="certification-icon">
-                            <i class="fab fa-aws"></i>
+
+    <!--
+        Certifications Section
+        - Grid layout of certification cards
+        - Each card has front/back flip animation
+        - Includes modal for expanded certificate view
+    -->
+    <section id="certifications" class="bg-light">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Certifications</h2>
+
+            <div class="certification-grid">
+                <!-- AWS Cloud Practitioner Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Cloud Practitioner Essentials</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
                         </div>
-                        <div class="certification-content">
-                            <h3>AWS Cloud Practitioner Essentials</h3>
-                            <p class="certification-issuer">Amazon Web Services</p>
-                            <p class="certification-date">Issued Sep 2024</p>
-                            <span class="certification-verify">Hover to view certificate →</span>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSCloudPractitioner.jpg"
+                                alt="AWS Cloud Practitioner Certificate" class="certification-image"
+                                data-certificate="aws-cloud">
                         </div>
-                    </div>
-                    <div class="certification-card-back">
-                        <img src="assets/images/certificates/AWSCloudPractitioner.jpg"
-                            alt="AWS Cloud Practitioner Certificate" class="certification-image"
-                            data-certificate="aws-cloud">
                     </div>
                 </div>
-            </div>
 
-            <!-- AWS Developer Associate -->
-            <div class="certification-card animate-on-scroll">
-                <div class="certification-card-inner">
-                    <div class="certification-card-front">
-                        <div class="certification-icon">
-                            <i class="fab fa-aws"></i>
+                <!-- AWS Developer Associate Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Developer - Associate</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Dec 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
                         </div>
-                        <div class="certification-content">
-                            <h3>AWS Certified Developer - Associate</h3>
-                            <p class="certification-issuer">Amazon Web Services</p>
-                            <p class="certification-date">Issued Dec 2024</p>
-                            <span class="certification-verify">Hover to view certificate →</span>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSDeveloperAssosiate.jpg"
+                                alt="AWS Developer Certificate" class="certification-image" data-certificate="aws-dev">
                         </div>
-                    </div>
-                    <div class="certification-card-back">
-                        <img src="assets/images/certificates/AWSDeveloperAssosiate.jpg" alt="AWS Developer Certificate"
-                            class="certification-image" data-certificate="aws-dev">
                     </div>
                 </div>
-            </div>
 
-            <!-- AWS Machine Learning -->
-            <div class="certification-card animate-on-scroll">
-                <div class="certification-card-inner">
-                    <div class="certification-card-front">
-                        <div class="certification-icon">
-                            <i class="fab fa-aws"></i>
+                <!-- AWS Machine Learning Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Machine Learning - Specialty</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
                         </div>
-                        <div class="certification-content">
-                            <h3>AWS Certified Machine Learning - Specialty</h3>
-                            <p class="certification-issuer">Amazon Web Services</p>
-                            <p class="certification-date">Issued Sep 2024</p>
-                            <span class="certification-verify">Hover to view certificate →</span>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSMachineLearningSpeciality.jpg"
+                                alt="AWS Machine Learning Certificate" class="certification-image"
+                                data-certificate="aws-ml">
                         </div>
-                    </div>
-                    <div class="certification-card-back">
-                        <img src="assets/images/certificates/AWSMachineLearningSpeciality.jpg" alt="AWS Machine Learning Certificate"
-                            class="certification-image" data-certificate="aws-ml">
                     </div>
                 </div>
-            </div>
 
-            <!-- Applied ML Python -->
-            <div class="certification-card animate-on-scroll">
-                <div class="certification-card-inner">
-                    <div class="certification-card-front">
-                        <div class="certification-icon">
-                            <i class="fas fa-robot"></i>
+                <!-- Applied ML Python Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>Applied Machine Learning in Python</h3>
+                                <p class="certification-issuer">University of Michigan</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
                         </div>
-                        <div class="certification-content">
-                            <h3>Applied Machine Learning in Python</h3>
-                            <p class="certification-issuer">University of Michigan</p>
-                            <p class="certification-date">Issued Sep 2024</p>
-                            <span class="certification-verify">Hover to view certificate →</span>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AppliedMLInPython.jpg" alt="Applied ML Certificate"
+                                class="certification-image" data-certificate="python-ml">
                         </div>
-                    </div>
-                    <div class="certification-card-back">
-                        <img src="assets/images/certificates/AppliedMLInPython.jpg" alt="Applied ML Certificate"
-                            class="certification-image" data-certificate="python-ml">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal for expanded view -->
-    <div class="modal" id="certificateModal">
-        <img class="modal-content" id="modalImage">
-    </div>
-</section>
+        <!-- Certificate Modal -->
+        <div class="modal" id="certificateModal">
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
 
-    
+
+    <!--
+        Projects Section
+        - Grid layout of project cards
+        - Each card shows project details and tech stack
+    -->
     <section id="projects">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+
             <div class="project-grid">
+                <!-- AI Glucose Project -->
                 <div class="project-card animate-on-scroll">
                     <h3>AI Glucose</h3>
                     <p>Designed an AI-powered app to predict blood sugar spikes and recommend insulin dosages using
@@ -315,6 +381,8 @@
                         <span>Flask</span>
                     </div>
                 </div>
+
+                <!-- ML Classifier Project -->
                 <div class="project-card animate-on-scroll">
                     <h3>ML Classifier Web App</h3>
                     <p>Developed a full-stack web application for choosing different machine learning classifiers and
@@ -325,6 +393,8 @@
                         <span>D3.js</span>
                     </div>
                 </div>
+
+                <!-- NLP Analysis Project -->
                 <div class="project-card animate-on-scroll">
                     <h3>NLP Book Analysis</h3>
                     <p>Built an advanced NLP pipeline using spaCy to analyze linguistic features in books from Project
@@ -338,33 +408,52 @@
             </div>
         </div>
     </section>
-    
+
+
+    <!--
+        Contact Section
+        - Contact form with required fields
+        - Animated on scroll
+    -->
     <section id="contact" class="bg-light">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Contact Me</h2>
+
             <form class="contact-form animate-on-scroll">
+                <!-- Name Field -->
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
+
+                <!-- Email Field -->
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+
+                <!-- Message Field -->
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
+
                 <button type="submit" class="btn-primary">Send Message</button>
             </form>
         </div>
     </section>
-    
 
-    <!-- Footer section -->
+
+    <!--
+        Footer Section
+        - Copyright information
+        - Social media links
+        - Dynamic year update via JavaScript
+    -->
     <footer>
         <div class="container">
             <p>© <span id="currentYear"></span> Garegin Mazmanyan</p>
+
             <div class="social-links">
                 <a href="https://github.com/tothelast" target="_blank" aria-label="GitHub Profile">
                     <i class="fab fa-github"></i>
@@ -376,8 +465,10 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+
+    <!-- Main JavaScript File -->
     <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

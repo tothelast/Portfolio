@@ -1,3 +1,21 @@
+/*
+ * Table of Contents:
+ * 1. CSS Variables & Reset
+ * 2. Base Styles
+ * 3. Layout & Container
+ * 4. Header & Navigation
+ * 5. Sections & Cards
+ * 6. Forms & Buttons
+ * 7. Certifications
+ * 8. Animations & Transitions
+ * 9. Modal Styles
+ * 10. Media Queries
+ */
+
+
+/* =============================================
+   1. CSS Variables & Reset
+   ============================================= */
 :root {
     --primary-color: #1e6dae;
     --secondary-color: #2d74ed;
@@ -12,21 +30,55 @@
     box-sizing: border-box;
 }
 
+
+/* =============================================
+   2. Base Styles
+   ============================================= */
 body {
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
 }
 
-.particles-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+a {
+    text-decoration: none;
+    transition: opacity 0.3s;
 }
 
+a:hover {
+    opacity: 0.8;
+}
+
+
+/* =============================================
+   3. Layout & Container
+   ============================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.bg-light {
+    background-color: var(--light-bg);
+}
+
+
+/* =============================================
+   4. Header & Navigation
+   ============================================= */
 header {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
@@ -34,14 +86,6 @@ header {
     text-align: center;
     position: relative;
     overflow: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 2;
 }
 
 .profile-img {
@@ -55,6 +99,16 @@ header {
     display: block;
 }
 
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Navigation */
 nav {
     background-color: var(--secondary-color);
     padding: 1rem;
@@ -72,29 +126,52 @@ nav ul {
 
 nav a {
     color: white;
-    text-decoration: none;
     font-weight: 500;
-    transition: opacity 0.3s;
 }
 
-nav a:hover {
+/* Under section 4. Header & Navigation, add: */
+.social-links {
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2;  /* Ensure icons appear above particles */
+}
+
+.social-links a {
+    color: white;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    display: inline-block;
+}
+
+.social-links a:hover {
     opacity: 0.8;
 }
 
-section {
-    padding: 4rem 0;
+/* Under section 8. Footer, add: */
+footer .social-links {
+    margin-top: 1rem;
 }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
+footer .social-links a {
+    color: white;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: opacity 0.3s;
+    display: inline-block;
 }
 
-.bg-light {
-    background-color: var(--light-bg);
+footer .social-links a:hover {
+    opacity: 0.8;
 }
 
+
+/* =============================================
+   5. Sections & Cards
+   ============================================= */
+/* Project Grid */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -114,6 +191,11 @@ section {
     transform: translateY(-5px);
 }
 
+.project-card h3 {
+    color: var(--primary-color);
+}
+
+/* Tech Stack */
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
@@ -129,6 +211,45 @@ section {
     font-size: 0.875rem;
 }
 
+/* Experience Items */
+.experience-item {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.experience-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.experience-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.experience-item p {
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.experience-item ul {
+    list-style-position: inside;
+    color: var(--text-color);
+}
+
+.experience-item li {
+    margin-bottom: 0.5rem;
+}
+
+
+/* =============================================
+   6. Forms & Buttons
+   ============================================= */
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -169,7 +290,6 @@ input:focus, textarea:focus {
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
-    text-decoration: none;
     display: inline-block;
 }
 
@@ -177,101 +297,10 @@ input:focus, textarea:focus {
     background: #2c5282;
 }
 
-footer {
-    background: var(--primary-color);
-    color: white;
-    padding: 2rem 0;
-    text-align: center;
-}
 
-.social-links {
-    margin-top: 1rem;
-}
-
-.social-links a {
-    color: white;
-    margin: 0 0.5rem;
-    font-size: 1.5rem;
-    text-decoration: none; 
-}
-
-.social-links a:hover {
-    opacity: 0.8;
-}
-
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-}
-
-.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
-
-    header {
-        padding: 2rem 0;
-    }
-
-    .profile-img {
-        width: 150px;
-        height: 150px;
-    }
-}
-
-
-.experience-item {
-    background: white;
-    border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.experience-item h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
-
-.project-card h3 {
-    color: var(--primary-color);
-}
-
-.experience-item p {
-    color: var(--accent-color);
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.experience-item ul {
-    list-style-position: inside;
-    color: var(--text-color);
-}
-
-.experience-item li {
-    margin-bottom: 0.5rem;
-}
-
-.experience-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-
-
+/* =============================================
+   7. Certifications
+   ============================================= */
 .certification-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -279,25 +308,81 @@ footer {
     margin-top: 2rem;
 }
 
+/* Card Structure */
 .certification-card {
-    background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    gap: 1.5rem;
-    transition: transform 0.3s ease;
+    perspective: 1000px;
+    height: 200px;
+    background: none;
+    padding: 0;
+    cursor: pointer;
 }
 
-.certification-card:hover {
-    transform: translateY(-5px);
+.certification-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.certification-card:hover .certification-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.certification-card-front, 
+.certification-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.certification-card-front {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.certification-card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+}
+
+/* Card Content */
+.certification-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
 }
 
 .certification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
     font-size: 2.5rem;
     color: var(--accent-color);
-    min-width: 60px;
-    text-align: center;
+}
+
+.certification-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .certification-content h3 {
@@ -320,111 +405,6 @@ footer {
 
 .certification-verify {
     color: var(--accent-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.certification-verify:hover {
-    text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-    .certification-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .certification-icon {
-        margin-bottom: 1rem;
-    }
-}
-
-
-/* Add or update these styles in your style.css */
-.certification-card {
-    perspective: 1000px;
-    height: 200px;  /* Fixed height for consistent flipping */
-    background: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.certification-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s;  /* Adjusted timing for smoother flip */
-    transform-style: preserve-3d;
-    cursor: pointer;
-}
-
-/* Make the flip smoother with a consistent speed */
-.certification-card:hover .certification-card-inner {
-    transform: rotateY(180deg);
-}
-
-.certification-card-front, 
-.certification-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari support */
-    backface-visibility: hidden;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.certification-card-front {
-    padding: 1.5rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-.certification-card-back {
-    transform: rotateY(180deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f8fafc;  /* Light background for the back */
-}
-
-.certification-image {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Ensure content is properly centered */
-.certification-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-}
-
-/* Add transition for hover effects */
-.certification-card-inner:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* Ensure icons are centered */
-.certification-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 60px;
-}
-
-/* Add a subtle indication that the card is interactive */
-.certification-verify {
-    color: var(--accent-color);
     font-size: 0.9rem;
     margin-top: auto;
     opacity: 0.8;
@@ -433,9 +413,38 @@ footer {
 
 .certification-verify:hover {
     opacity: 1;
+    text-decoration: underline;
 }
 
-/* Modal styling */
+
+/* =============================================
+   8. Footer
+   ============================================= */
+footer {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+/* =============================================
+   9. Animations & Transitions
+   ============================================= */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =============================================
+   10. Modal Styles
+   ============================================= */
 .modal {
     display: none;
     position: fixed;
@@ -448,6 +457,12 @@ footer {
     cursor: pointer;
 }
 
+.modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal-content {
     max-width: 90%;
     max-height: 90vh;
@@ -458,8 +473,40 @@ footer {
     transform: translateY(-50%);
 }
 
-.modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+/* =============================================
+   11. Media Queries
+   ============================================= */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    /* Layout */
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Header */
+    header {
+        padding: 2rem 0;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Certifications */
+    .certification-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .certification-icon {
+        margin-bottom: 1rem;
+    }
 }
