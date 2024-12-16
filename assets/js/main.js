@@ -93,12 +93,42 @@ const initializeSmoothScrolling = () => {
  */
 const initializeContactForm = () => {
     const contactForm = document.querySelector('.contact-form');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
 
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Form submission is disabled in this preview.');
+    contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Disable the button to prevent multiple submissions
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        const formData = new FormData(contactForm);
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert('Your message has been sent successfully!');
+                contactForm.reset(); // Clear the form after successful submission
+            } else {
+                const errorData = await response.json();
+                console.error('Submission failed:', errorData);
+                alert('Failed to send your message. Please try again later.');
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
+            alert('An unexpected error occurred. Please check your internet connection.');
+        } finally {
+            // Re-enable the button
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+        }
     });
 };
+
 
 
 /**
