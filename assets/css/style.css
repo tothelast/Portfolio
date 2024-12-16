@@ -497,14 +497,13 @@ footer {
 
 .modal-content {
     max-width: 90%;
-    max-height: 90vh;
-    /* Remove the top: 50% and transform: translateY(-50%) */
-    /* Instead, use these properties: */
+    max-height: 85vh;
     margin: auto;
     object-fit: contain;
     display: block;
     transition: opacity 0.3s ease;
-
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 
@@ -573,10 +572,21 @@ footer {
     .certification-card:hover .certification-card-inner {
         transform: none;
     }
+
+    .certification-card-back {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .certification-image {
+        pointer-events: auto;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .modal-nav {
         display: none !important;
     }
-
 }
 
 

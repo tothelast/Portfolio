@@ -274,7 +274,7 @@ const initializeCertificateModal = () => {
     let touchStartX = 0;
     let touchEndX = 0;
 
-    // Add navigation arrows to modal
+    // Add navigation arrows to modal if they don't exist
     if (!document.querySelector('.modal-nav')) {
         const navHTML = `
             <button class="modal-nav modal-nav-prev" aria-label="Previous certificate">
@@ -294,9 +294,10 @@ const initializeCertificateModal = () => {
         modalImg.src = certificates[index].src;
         currentIndex = index;
 
-        // Update navigation buttons visibility
-        prevButton.style.display = index === 0 ? 'none' : 'block';
-        nextButton.style.display = index === certificates.length - 1 ? 'none' : 'block';
+        if (prevButton && nextButton) {
+            prevButton.style.display = index === 0 ? 'none' : 'block';
+            nextButton.style.display = index === certificates.length - 1 ? 'none' : 'block';
+        }
 
         // Add fade effect
         modalImg.style.opacity = '0';
@@ -312,9 +313,11 @@ const initializeCertificateModal = () => {
         }
     }
 
-    // Desktop navigation
+    // Handle Desktop Navigation
     if (!isMobileDevice()) {
-        // Keyboard navigation
+        // Desktop hover behavior remains default from CSS
+
+        // Arrow key navigation
         document.addEventListener('keydown', (e) => {
             if (!modal.classList.contains('active')) return;
 
@@ -325,20 +328,67 @@ const initializeCertificateModal = () => {
             }
         });
 
-        // Arrow button clicks
-        prevButton.addEventListener('click', (e) => {
+        // Arrow button navigation
+        prevButton?.addEventListener('click', (e) => {
             e.stopPropagation();
             navigateCertificates(-1);
         });
 
-        nextButton.addEventListener('click', (e) => {
+        nextButton?.addEventListener('click', (e) => {
             e.stopPropagation();
             navigateCertificates(1);
         });
+
+        // Desktop click to open
+        certificates.forEach((img, index) => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modal.classList.add('active');
+                showCertificate(index);
+            });
+        });
     }
 
-    // Mobile touch navigation
+    // Handle Mobile Interactions
     if (isMobileDevice()) {
+        document.querySelectorAll('.certification-card').forEach((card, index) => {
+            let isFlipped = false;
+
+            // First tap to flip
+            card.addEventListener('click', (e) => {
+                if (!isFlipped) {
+                    card.querySelector('.certification-card-inner').style.transform = 'rotateY(180deg)';
+                    isFlipped = true;
+                    e.stopPropagation();
+                }
+            });
+
+            // Second tap to open modal
+            const cardImage = card.querySelector('.certification-image');
+            cardImage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isFlipped) {
+                    modal.classList.add('active');
+                    showCertificate(index);
+
+                    // Reset flip state after slight delay
+                    setTimeout(() => {
+                        card.querySelector('.certification-card-inner').style.transform = '';
+                        isFlipped = false;
+                    }, 300);
+                }
+            });
+
+            // Reset flip state when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!card.contains(e.target)) {
+                    card.querySelector('.certification-card-inner').style.transform = '';
+                    isFlipped = false;
+                }
+            });
+        });
+
+        // Mobile swipe navigation
         modal.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
         }, { passive: true });
@@ -351,7 +401,6 @@ const initializeCertificateModal = () => {
             touchEndX = e.changedTouches[0].clientX;
             const swipeDistance = touchEndX - touchStartX;
 
-            // Minimum swipe distance threshold
             if (Math.abs(swipeDistance) > 50) {
                 if (swipeDistance > 0) {
                     navigateCertificates(-1); // Swipe right = previous
@@ -362,19 +411,14 @@ const initializeCertificateModal = () => {
         });
     }
 
-    // Update certificate click handlers
-    certificates.forEach((img, index) => {
-        img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            modal.classList.add('active');
-            showCertificate(index);
-        });
-    });
-
-    // Keep existing modal close functionality
+    // Universal close handlers
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('active');
+            // Reset all cards when closing modal
+            document.querySelectorAll('.certification-card-inner').forEach(card => {
+                card.style.transform = '';
+            });
         }
     });
 
@@ -385,6 +429,10 @@ const initializeCertificateModal = () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
+            // Reset all cards when closing modal
+            document.querySelectorAll('.certification-card-inner').forEach(card => {
+                card.style.transform = '';
+            });
         }
     });
 };
