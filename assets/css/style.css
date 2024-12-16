@@ -455,22 +455,23 @@ footer {
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 1000;
     cursor: pointer;
+    /* Add these properties for better centering */
+    justify-content: center;
+    align-items: center;
 }
 
 .modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; /* This ensures the flexbox centering works */
 }
 
 .modal-content {
     max-width: 90%;
     max-height: 90vh;
+    /* Remove the top: 50% and transform: translateY(-50%) */
+    /* Instead, use these properties: */
     margin: auto;
+    object-fit: contain;
     display: block;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 
@@ -478,6 +479,13 @@ footer {
    11. Media Queries
    ============================================= */
 @media (max-width: 768px) {
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+    }
     /* Navigation */
     nav ul {
         flex-direction: column;
@@ -510,7 +518,7 @@ footer {
         margin-bottom: 1rem;
     }
 
-        .success-message {
+    .success-message {
         padding: 1.5rem;
         /* Ensure message is visible on mobile */
         position: fixed;
