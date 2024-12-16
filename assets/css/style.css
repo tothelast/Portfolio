@@ -460,6 +460,37 @@ footer {
     align-items: center;
 }
 
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1002;
+}
+
+.modal-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-nav-prev {
+    left: 20px;
+}
+
+.modal-nav-next {
+    right: 20px;
+}
+
 .modal.active {
     display: flex; /* This ensures the flexbox centering works */
 }
@@ -472,7 +503,10 @@ footer {
     margin: auto;
     object-fit: contain;
     display: block;
+    transition: opacity 0.3s ease;
+
 }
+
 
 
 /* =============================================
@@ -481,10 +515,11 @@ footer {
 @media (max-width: 768px) {
 
     .modal-content {
-        max-width: 95%;
-        max-height: 80vh;
-        width: auto;
-        height: auto;
+        max-width: 90%;
+        max-height: 85vh;
+        object-fit: contain;
+        user-select: none;
+        -webkit-user-select: none;
     }
     /* Navigation */
     nav ul {
@@ -538,6 +573,10 @@ footer {
     .certification-card:hover .certification-card-inner {
         transform: none;
     }
+    .modal-nav {
+        display: none !important;
+    }
+
 }
 
 

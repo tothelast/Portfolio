@@ -269,50 +269,113 @@ const initializeContactForm = () => {
 const initializeCertificateModal = () => {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
+    const certificates = Array.from(document.querySelectorAll('.certification-image'));
+    let currentIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
-    // Handle certificate card interactions
-    document.querySelectorAll('.certification-card').forEach(card => {
-        if (isMobileDevice()) {
-            // For mobile: first tap flips, second tap opens modal
-            let isFlipped = false;
-            card.addEventListener('click', (e) => {
-                if (!isFlipped) {
-                    // First tap: flip the card
-                    card.querySelector('.certification-card-inner').style.transform = 'rotateY(180deg)';
-                    isFlipped = true;
-                } else {
-                    // Second tap: open modal
-                    const img = card.querySelector('.certification-image');
-                    modal.classList.add('active');
-                    modalImg.src = img.src;
-                    // Reset flip state
-                    card.querySelector('.certification-card-inner').style.transform = '';
-                    isFlipped = false;
-                }
-                e.stopPropagation();
-            });
+    // Add navigation arrows to modal
+    if (!document.querySelector('.modal-nav')) {
+        const navHTML = `
+            <button class="modal-nav modal-nav-prev" aria-label="Previous certificate">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="modal-nav modal-nav-next" aria-label="Next certificate">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        `;
+        modal.insertAdjacentHTML('beforeend', navHTML);
+    }
 
-            // Reset flip state when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!card.contains(e.target)) {
-                    card.querySelector('.certification-card-inner').style.transform = '';
-                    isFlipped = false;
-                }
-            });
-        } else {
-            // Keep existing desktop behavior
-            const img = card.querySelector('.certification-image');
-            img.addEventListener('click', (e) => {
-                e.stopPropagation();
-                modal.classList.add('active');
-                modalImg.src = img.src;
-            });
+    const prevButton = modal.querySelector('.modal-nav-prev');
+    const nextButton = modal.querySelector('.modal-nav-next');
+
+    function showCertificate(index) {
+        modalImg.src = certificates[index].src;
+        currentIndex = index;
+
+        // Update navigation buttons visibility
+        prevButton.style.display = index === 0 ? 'none' : 'block';
+        nextButton.style.display = index === certificates.length - 1 ? 'none' : 'block';
+
+        // Add fade effect
+        modalImg.style.opacity = '0';
+        setTimeout(() => {
+            modalImg.style.opacity = '1';
+        }, 50);
+    }
+
+    function navigateCertificates(direction) {
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < certificates.length) {
+            showCertificate(newIndex);
         }
+    }
+
+    // Desktop navigation
+    if (!isMobileDevice()) {
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+
+            if (e.key === 'ArrowLeft') {
+                navigateCertificates(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigateCertificates(1);
+            }
+        });
+
+        // Arrow button clicks
+        prevButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateCertificates(-1);
+        });
+
+        nextButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateCertificates(1);
+        });
+    }
+
+    // Mobile touch navigation
+    if (isMobileDevice()) {
+        modal.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        modal.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent page scroll while swiping
+        }, { passive: false });
+
+        modal.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const swipeDistance = touchEndX - touchStartX;
+
+            // Minimum swipe distance threshold
+            if (Math.abs(swipeDistance) > 50) {
+                if (swipeDistance > 0) {
+                    navigateCertificates(-1); // Swipe right = previous
+                } else {
+                    navigateCertificates(1); // Swipe left = next
+                }
+            }
+        });
+    }
+
+    // Update certificate click handlers
+    certificates.forEach((img, index) => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modal.classList.add('active');
+            showCertificate(index);
+        });
     });
 
     // Keep existing modal close functionality
-    modal.addEventListener('click', () => {
-        modal.classList.remove('active');
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
     });
 
     modalImg.addEventListener('click', (e) => {
