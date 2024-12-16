@@ -509,11 +509,34 @@ footer {
     .certification-icon {
         margin-bottom: 1rem;
     }
+
+        .success-message {
+        padding: 1.5rem;
+        /* Ensure message is visible on mobile */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+}
+
+@media (hover: none) {
+    .certification-card-inner {
+        transform: none;
+        transition: transform 0.6s;
+    }
+    
+    .certification-card:hover .certification-card-inner {
+        transform: none;
+    }
 }
 
 
 #successCanvas {
     position: fixed;
+    width: 100% !important;
+    height: 100% !important;
     top: 0;
     left: 0;
     pointer-events: none;
@@ -533,6 +556,12 @@ footer {
     text-align: center;
     z-index: 1001;
     display: none;
+    width: 90%;
+    max-width: 400px;
+    /* Add these properties for better mobile handling */
+    -webkit-transform: translate(-50%, -50%);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .success-icon {

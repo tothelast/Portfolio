@@ -10,6 +10,9 @@
  * - Dynamic year update
  */
 
+const isMobileDevice = () => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+};
 
 /**
  * Particles.js Configuration
@@ -101,7 +104,7 @@ const initializeContactForm = () => {
     let particles = [];
     let animationId;
 
-    // Particle class definition remains the same
+    // Particle class definition
     class Particle {
         constructor(x, y, color) {
             this.x = x;
@@ -141,12 +144,12 @@ const initializeContactForm = () => {
 
     function createParticles(x, y) {
         const colors = ['#059669', '#34D399', '#6EE7B7', '#A7F3D0'];
-        for (let i = 0; i < 50; i++) {
+        const particleCount = isMobileDevice() ? 25 : 50; // Reduce particles on mobile
+        for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
         }
     }
 
-    // Modified animate function to only handle particles
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -162,8 +165,36 @@ const initializeContactForm = () => {
         } else {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
-            // Removed the successMessage.style.display = 'none' from here
         }
+    }
+
+    function showSuccessMessage() {
+        // Force layout recalculation on mobile
+        successMessage.style.display = 'block';
+        successMessage.style.opacity = '0';
+
+        // Trigger reflow
+        successMessage.offsetHeight;
+
+        // Add fade in
+        successMessage.style.opacity = '1';
+        successMessage.style.transition = 'opacity 0.3s ease-in';
+
+        // Ensure proper positioning on mobile
+        if (isMobileDevice()) {
+            document.body.style.overflow = 'hidden';
+            window.scrollTo(0, 0);
+        }
+    }
+
+    function hideSuccessMessage() {
+        successMessage.style.opacity = '0';
+        setTimeout(() => {
+            successMessage.style.display = 'none';
+            if (isMobileDevice()) {
+                document.body.style.overflow = '';
+            }
+        }, 300);
     }
 
     closeButton.addEventListener('click', () => {
@@ -171,18 +202,21 @@ const initializeContactForm = () => {
         particles = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         canvas.style.display = 'none';
-        successMessage.style.display = 'none';
+        hideSuccessMessage();
     });
 
     contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        // Disable submit button and show loading state
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
 
+        // Create FormData object
         const formData = new FormData(contactForm);
 
         try {
+            // Submit the form
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 body: formData,
@@ -196,32 +230,36 @@ const initializeContactForm = () => {
             if (data.success) {
                 // Show success message and animation
                 canvas.style.display = 'block';
-                successMessage.style.display = 'block';
-                createParticles(window.innerWidth / 2, window.innerHeight / 2);
-                animate();
+                showSuccessMessage();
+
+                // Start animation only if device can handle it
+                if (!isMobileDevice() || window.innerWidth > 768) {
+                    createParticles(window.innerWidth / 2, window.innerHeight / 2);
+                    animate();
+                }
+
                 contactForm.reset();
 
-                // Set a timeout just for the particles
+                // Handle animation cleanup
                 setTimeout(() => {
                     cancelAnimationFrame(animationId);
                     particles = [];
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     canvas.style.display = 'none';
-                    // Success message will stay until user clicks close
                 }, 3000);
             } else {
                 throw new Error(data.message || 'Submission failed');
             }
         } catch (error) {
             console.error('Error occurred:', error);
-            alert('An unexpected error occurred. Please try again later.');
+            alert('Failed to send message. Please try again later.');
         } finally {
+            // Reset button state
             submitButton.disabled = false;
             submitButton.textContent = 'Send Message';
         }
     });
 };
-
 
 
 /**
@@ -232,26 +270,55 @@ const initializeCertificateModal = () => {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
 
-    // Open modal when clicking certificate images
-    document.querySelectorAll('.certification-image').forEach(img => {
-        img.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent card flip
-            modal.classList.add('active');
-            modalImg.src = img.src;
-        });
+    // Handle certificate card interactions
+    document.querySelectorAll('.certification-card').forEach(card => {
+        if (isMobileDevice()) {
+            // For mobile: first tap flips, second tap opens modal
+            let isFlipped = false;
+            card.addEventListener('click', (e) => {
+                if (!isFlipped) {
+                    // First tap: flip the card
+                    card.querySelector('.certification-card-inner').style.transform = 'rotateY(180deg)';
+                    isFlipped = true;
+                } else {
+                    // Second tap: open modal
+                    const img = card.querySelector('.certification-image');
+                    modal.classList.add('active');
+                    modalImg.src = img.src;
+                    // Reset flip state
+                    card.querySelector('.certification-card-inner').style.transform = '';
+                    isFlipped = false;
+                }
+                e.stopPropagation();
+            });
+
+            // Reset flip state when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!card.contains(e.target)) {
+                    card.querySelector('.certification-card-inner').style.transform = '';
+                    isFlipped = false;
+                }
+            });
+        } else {
+            // Keep existing desktop behavior
+            const img = card.querySelector('.certification-image');
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modal.classList.add('active');
+                modalImg.src = img.src;
+            });
+        }
     });
 
-    // Close modal when clicking outside image
+    // Keep existing modal close functionality
     modal.addEventListener('click', () => {
         modal.classList.remove('active');
     });
 
-    // Prevent modal close when clicking the image
     modalImg.addEventListener('click', (e) => {
         e.stopPropagation();
     });
 
-    // Close modal with escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
