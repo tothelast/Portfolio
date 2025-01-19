@@ -186,11 +186,19 @@ footer .social-links a:hover {
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
+  background: #ebedef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: inherit;
 }
 
 .project-card h3 {
@@ -200,25 +208,6 @@ footer .social-links a:hover {
 .project-card h3 a {
   color: var(--primary-color);
   text-decoration: none;
-  position: relative;
-}
-
-.project-card h3 a::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  background-color: var(--accent-color);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
-
-.project-card h3 a:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 /* Tech Stack */
