@@ -599,10 +599,1208 @@
     </footer>
 
 
-    <!-- Load environment variables -->
-    <script>
-        process = { env: { DEEPSEEK_API_KEY: 'sk-0897e3ee55fd4c5d90bff889d585ee0a' } };
+    <!-- Main JavaScript Files -->
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    Head Section
+    - Contains meta information, title, and external dependencies
+    - Includes particle.js and Font Awesome libraries
+    - Links to custom CSS
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Basic Meta Tags -->
+    <meta name="description"
+        content="Garegin Mazmanyan - Full-Stack Engineer and AI/ML specialist with expertise in Python, Java, and JavaScript. Experienced in machine learning, data engineering, and cloud technologies.">
+    <meta name="keywords"
+        content="Garegin Mazmanyan, Full Stack Engineer, Machine Learning Engineer, AI Engineer, Data Engineer, Software Engineer, Python Developer, AWS, TensorFlow, React">
+    <meta name="author" content="Garegin Mazmanyan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Garegin Mazmanyan - Full-Stack & AI Engineer Portfolio">
+    <meta property="og:description"
+        content="Portfolio of Garegin Mazmanyan - Full-Stack Engineer specializing in AI/ML, Data Engineering, and Software Development">
+    <meta property="og:image" content="assets/images/me.jpeg">
+    <meta property="og:url" content="[Your website URL]">
+    <meta property="og:type" content="website">
+    <!-- Professional Profile Meta Tags -->
+    <meta name="profession" content="Software Engineer">
+    <meta name="specialty" content="Full-Stack Development, Machine Learning, AI Engineering">
+    <meta name="skills"
+        content="Python, Java, JavaScript, React, Node.js, TensorFlow, AWS, Machine Learning, Data Engineering">
+
+    <!-- Technical Expertise Tags -->
+    <meta name="technical-skills"
+        content="AWS Cloud, Docker, CI/CD, Machine Learning, Deep Learning, Full-Stack Development">
+    <meta name="frameworks" content="React, Node.js, Django, Flask, TensorFlow, PyTorch">
+    <meta name="languages" content="Python, Java, JavaScript, TypeScript, C++, Go, Rust">
+
+    <!-- LinkedIn and GitHub Integration -->
+    <link rel="me" href="https://www.linkedin.com/in/gareginma">
+    <link rel="me" href="https://github.com/tothelast">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garegin Mazmanyan</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Garegin Mazmanyan",
+      "jobTitle": ["Full-Stack Engineer", "Machine Learning Engineer", "AI Engineer", "Data Engineer"],
+      "alumniOf": "University of Arizona",
+      "url": "[Your website URL]",
+      "sameAs": [
+        "https://www.linkedin.com/in/gareginma",
+        "https://github.com/tothelast"
+      ],
+      "knowsAbout": [
+        "Full-Stack Development",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Data Engineering",
+        "Cloud Computing",
+        "Software Engineering"
+      ],
+      "skill": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "TensorFlow",
+        "AWS",
+        "Docker",
+        "Machine Learning",
+        "Deep Learning"
+      ]
+    }
     </script>
+</head>
+
+
+<body>
+    <!-- Particles.js Container -->
+    <div id="particles-js" class="particles-container"></div>
+
+    <!--
+        Header Section
+        - Contains profile information and social links
+        - All elements have animation on scroll
+    -->
+    <header>
+        <div class="container">
+            <img src="assets/images/me.jpeg" alt="Profile Picture" class="profile-img animate-on-scroll">
+            <h1 class="animate-on-scroll">Garegin Mazmanyan</h1>
+            <p class="animate-on-scroll">Full-Stack Engineer with Data Science Expertise</p>
+
+            <div class="social-links animate-on-scroll">
+                <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/tothelast" target="_blank" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!--
+        Navigation Section
+        - Main navigation menu
+        - Contains links to all major sections
+    -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!--
+        About Section
+        - Personal introduction and background
+        - Contains link to full resume
+    -->
+    <section id="about">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <h2 class="section-title">About Me</h2>
+                <p>I'm a computer science student, now pursuing my master's at the University of Arizona, combining
+                    expertise in full-stack development and machine learning. Proficient in multiple programming
+                    languages including Python, Java, and JavaScript, I specialize in building scalable
+                    web applications and developing AI-driven solutions. My experience spans from implementing
+                    full-stack applications using
+                    React and Node.js to designing machine learning models with TensorFlow and scikit-learn. With a
+                    strong foundation in
+                    cloud technologies and AWS services, I focus on creating innovative solutions that combine modern
+                    web development
+                    practices with advanced data science techniques to deliver real-world impact.</p>
+
+                <div class="social-links" style="margin-top: 2rem;">
+                    <a href="assets/files/resume.pdf" target="_blank" rel="noopener" class="btn-primary">
+                        View Full Résumé →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Skills Section
+        - Grid layout of technical skills
+        - Organized by category
+        - Each category is an animated card
+    -->
+    <section id="skills" class="bg-light">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Technical Skills</h2>
+
+            <div class="project-grid">
+                <!-- Programming Languages Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Programming Languages</h3>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>Java</span>
+                        <span>JavaScript</span>
+                        <span>TypeScript</span>
+                        <span>C/C++</span>
+                        <span>C#</span>
+                        <span>Go</span>
+                        <span>Rust</span>
+                        <span>Kotlin</span>
+                        <span>Shell scripting</span>
+                    </div>
+                </div>
+
+                <!-- Web Technologies Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Web Development</h3>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Express</span>
+                        <span>Django</span>
+                        <span>Flask</span>
+                        <span>HTML/CSS</span>
+                        <span>Bootstrap</span>
+                        <span>REST APIs</span>
+                    </div>
+                </div>
+
+                <!-- Machine Learning Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Machine Learning & AI</h3>
+                    <div class="tech-stack">
+                        <span>Supervised/Unsupervised Learning</span>
+                        <span>Reinforcement Learning</span>
+                        <span>Deep Learning</span>
+                        <span>TensorFlow</span>
+                        <span>PyTorch</span>
+                        <span>scikit-learn</span>
+                        <span>spaCy</span>
+                        <span>pandas</span>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="tech-stack">
+                        <span>AWS</span>
+                        <span>Docker</span>
+                        <span>CI/CD</span>
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>Lambda</span>
+                        <span>ECS</span>
+                        <span>API Gateway</span>
+                    </div>
+                </div>
+
+                <!-- Databases Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Databases</h3>
+                    <div class="tech-stack">
+                        <span>MongoDB</span>
+                        <span>SQL</span>
+                        <span>NoSQL</span>
+                        <span>DynamoDB</span>
+                        <span>RDS</span>
+                        <span>Aurora</span>
+                    </div>
+                </div>
+
+                <!-- Development Tools Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Development Tools</h3>
+                    <div class="tech-stack">
+                        <span>Unix/Linux</span>
+                        <span>Bash</span>
+                        <span>VIM</span>
+                        <span>Jest</span>
+                        <span>JUnit</span>
+                        <span>Eclipse</span>
+                        <span>Agile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Experience Section
+        - Lists work experience in chronological order
+        - Each experience item is animated
+    -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Work Experience</h2>
+
+            <!-- Current Position -->
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Junior Software Engineer Intern - AEYESAFE</h3>
+                    <a href="https://www.aeyesafe.com" target="_blank" style="color: #2d74ed;">https://www.aeyesafe.com</a>
+                </div>
+                <p>October 2024 - Present</p>
+                <ul>
+                    <li>Streamlined workflows by containerizing and deploying applications using Docker, ensuring
+                        consistent
+                        development and testing processes</li>
+                    <li>Designed and implemented scalable cloud infrastructure using AWS services (ECS, Fargate, SQS,
+                        DynamoDB, ECR, ElastiCache)</li>
+                    <li>Created CI/CD pipeline with YAML scripts, reducing deployment time by 50%</li>
+                    <li>Implemented secure user authentication and API interactions using AWS Lambda and API Gateway
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Previous Positions -->
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Course Coordinator - University of Arizona</h3>
+                    <a href="https://www.arizona.edu" target="_blank" style="color: #2d74ed;">https://www.arizona.edu</a>
+                </div>
+                <p>August 2024 - December 2024</p>
+                <ul>
+                    <li>Coordinated curriculum across multiple sections for 300+ students in software development</li>
+                    <li>Developed Python scripts for grading automation and data tracking, improving workflow efficiency
+                        by
+                        30%</li>
+                    <li>Created automated scheduling tools and managed course logistics</li>
+                    <li>Collaborated with faculty to enhance student learning experience</li>
+                </ul>
+            </div>
+
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Undergraduate Teaching Assistant - University of Arizona</h3>
+                    <a href="https://www.arizona.edu" target="_blank" style="color: #2d74ed;">https://www.arizona.edu</a>
+                </div>
+                <p>August 2023 - July 2024</p>
+                <ul>
+                    <li>Mentored 150+ students in Python programming, focusing on coding best practices and algorithm
+                        development</li>
+                    <li>Administered lab sessions focused on hands-on programming exercises</li>
+                    <li>Developed custom Python teaching materials and coding challenges</li>
+                    <li>Provided guidance on complex programming concepts and problem-solving techniques</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Certifications Section
+        - Grid layout of certification cards
+        - Each card has front/back flip animation
+        - Includes modal for expanded certificate view
+    -->
+    <section id="certifications" class="bg-light">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Certifications</h2>
+            <div class="certification-grid">
+
+                <!-- AWS Cloud Practitioner Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Cloud Practitioner Essentials</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSCloudPractitioner.jpg"
+                                alt="AWS Cloud Practitioner Certificate" class="certification-image"
+                                data-certificate="aws-cloud">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AWS Developer Associate Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Developer - Associate</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Dec 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSDeveloperAssosiate.jpg"
+                                alt="AWS Developer Certificate" class="certification-image" data-certificate="aws-dev">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AWS Machine Learning Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Machine Learning - Specialty</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSMachineLearningSpeciality.jpg"
+                                alt="AWS Machine Learning Certificate" class="certification-image"
+                                data-certificate="aws-ml">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applied ML Python Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>Applied Machine Learning in Python</h3>
+                                <p class="certification-issuer">University of Michigan</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AppliedMLInPython.jpg" alt="Applied ML Certificate"
+                                class="certification-image" data-certificate="python-ml">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Design -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fa-solid fa-display"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>Web Design for Everybody</h3>
+                                <p class="certification-issuer">University of Michigan</p>
+                                <p class="certification-date">Issued Jun 2023</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/WebDesign.jpg"
+                                alt="Web Design for Everybody Certificate" class="certification-image"
+                                data-certificate="Web-Design">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Modal -->
+        <div class="modal" id="certificateModal">
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
+
+
+    <!--
+        Projects Section
+        - Grid layout of project cards
+        - Each card shows project details and tech stack
+    -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+
+            <div class="project-grid">
+                <!-- CSC110 Coding Platform -->
+                <a href="https://csc110-coding-platform.com" target="_blank" class="project-card animate-on-scroll">
+                    <h3>CSC110 Coding Platform</h3>
+                    <p>Developed a full-stack educational platform featuring interactive code editor, real-time Python
+                        execution, and automated test validation, resulting in 40% increased student engagement.</p>
+                    <div class="tech-stack">
+                        <span>React.js</span>
+                        <span>Node.js</span>
+                        <span>Express.js</span>
+                        <span>SQL</span>
+                        <span>JWT</span>
+                    </div>
+                </a>
+
+                <!-- AI Glucose Project -->
+                <div class="project-card animate-on-scroll">
+                    <h3><span class="project-link">AI Glucose</span></h3>
+                    <p>Designed an AI-powered app to predict blood sugar spikes and recommend insulin dosages using
+                        Python and machine learning frameworks.</p>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>Flask</span>
+                    </div>
+                </div>
+
+                <!-- ML Classifier Project -->
+                <div class="project-card animate-on-scroll">
+                    <h3><span class="project-link">ML Classifier Web App</span></h3>
+                    <p>Developed a full-stack web application for choosing different machine learning classifiers and
+                        visualizing model performance.</p>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>scikit-learn</span>
+                        <span>D3.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Contact Section
+        - Contact form with required fields
+        - Animated on scroll
+    -->
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-content">
+                <div class="contact-form-wrapper">
+                    <h2 class="section-title animate-on-scroll">Let's Connect</h2>
+                    <p class="contact-subtitle">I'm always interested in hearing about new projects and opportunities.</p>
+
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form animate-on-scroll">
+                        <input type="hidden" name="access_key" value="98c28d7f-582b-4507-9de6-7bbf78f50809">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Name</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-comment-alt input-icon"></i>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Message</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-decoration">
+                    <div class="decoration-image">
+                        <img src="assets/images/me.jpeg" alt="Profile Picture">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <canvas id="successCanvas"></canvas>
+        <div class="success-message">
+            <div class="success-icon">✨</div>
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for reaching out. I'll get back to you soon!</p>
+            <button class="close-button">Close</button>
+        </div>
+    </section>
+
+
+    <!--
+        Footer Section
+        - Copyright information
+        - Social media links
+        - Dynamic year update via JavaScript
+    -->
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> Garegin Mazmanyan</p>
+
+            <div class="social-links">
+                <a href="https://github.com/tothelast" target="_blank" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    Head Section
+    - Contains meta information, title, and external dependencies
+    - Includes particle.js and Font Awesome libraries
+    - Links to custom CSS
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Basic Meta Tags -->
+    <meta name="description"
+        content="Garegin Mazmanyan - Full-Stack Engineer and AI/ML specialist with expertise in Python, Java, and JavaScript. Experienced in machine learning, data engineering, and cloud technologies.">
+    <meta name="keywords"
+        content="Garegin Mazmanyan, Full Stack Engineer, Machine Learning Engineer, AI Engineer, Data Engineer, Software Engineer, Python Developer, AWS, TensorFlow, React">
+    <meta name="author" content="Garegin Mazmanyan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Garegin Mazmanyan - Full-Stack & AI Engineer Portfolio">
+    <meta property="og:description"
+        content="Portfolio of Garegin Mazmanyan - Full-Stack Engineer specializing in AI/ML, Data Engineering, and Software Development">
+    <meta property="og:image" content="assets/images/me.jpeg">
+    <meta property="og:url" content="[Your website URL]">
+    <meta property="og:type" content="website">
+    <!-- Professional Profile Meta Tags -->
+    <meta name="profession" content="Software Engineer">
+    <meta name="specialty" content="Full-Stack Development, Machine Learning, AI Engineering">
+    <meta name="skills"
+        content="Python, Java, JavaScript, React, Node.js, TensorFlow, AWS, Machine Learning, Data Engineering">
+
+    <!-- Technical Expertise Tags -->
+    <meta name="technical-skills"
+        content="AWS Cloud, Docker, CI/CD, Machine Learning, Deep Learning, Full-Stack Development">
+    <meta name="frameworks" content="React, Node.js, Django, Flask, TensorFlow, PyTorch">
+    <meta name="languages" content="Python, Java, JavaScript, TypeScript, C++, Go, Rust">
+
+    <!-- LinkedIn and GitHub Integration -->
+    <link rel="me" href="https://www.linkedin.com/in/gareginma">
+    <link rel="me" href="https://github.com/tothelast">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garegin Mazmanyan</title>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Garegin Mazmanyan",
+      "jobTitle": ["Full-Stack Engineer", "Machine Learning Engineer", "AI Engineer", "Data Engineer"],
+      "alumniOf": "University of Arizona",
+      "url": "[Your website URL]",
+      "sameAs": [
+        "https://www.linkedin.com/in/gareginma",
+        "https://github.com/tothelast"
+      ],
+      "knowsAbout": [
+        "Full-Stack Development",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Data Engineering",
+        "Cloud Computing",
+        "Software Engineering"
+      ],
+      "skill": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "TensorFlow",
+        "AWS",
+        "Docker",
+        "Machine Learning",
+        "Deep Learning"
+      ]
+    }
+    </script>
+</head>
+
+
+<body>
+    <!-- Particles.js Container -->
+    <div id="particles-js" class="particles-container"></div>
+
+    <!--
+        Header Section
+        - Contains profile information and social links
+        - All elements have animation on scroll
+    -->
+    <header>
+        <div class="container">
+            <img src="assets/images/me.jpeg" alt="Profile Picture" class="profile-img animate-on-scroll">
+            <h1 class="animate-on-scroll">Garegin Mazmanyan</h1>
+            <p class="animate-on-scroll">Full-Stack Engineer with Data Science Expertise</p>
+
+            <div class="social-links animate-on-scroll">
+                <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/tothelast" target="_blank" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <!--
+        Navigation Section
+        - Main navigation menu
+        - Contains links to all major sections
+    -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!--
+        About Section
+        - Personal introduction and background
+        - Contains link to full resume
+    -->
+    <section id="about">
+        <div class="container">
+            <div class="animate-on-scroll">
+                <h2 class="section-title">About Me</h2>
+                <p>I'm a computer science student, now pursuing my master's at the University of Arizona, combining
+                    expertise in full-stack development and machine learning. Proficient in multiple programming
+                    languages including Python, Java, and JavaScript, I specialize in building scalable
+                    web applications and developing AI-driven solutions. My experience spans from implementing
+                    full-stack applications using
+                    React and Node.js to designing machine learning models with TensorFlow and scikit-learn. With a
+                    strong foundation in
+                    cloud technologies and AWS services, I focus on creating innovative solutions that combine modern
+                    web development
+                    practices with advanced data science techniques to deliver real-world impact.</p>
+
+                <div class="social-links" style="margin-top: 2rem;">
+                    <a href="assets/files/resume.pdf" target="_blank" rel="noopener" class="btn-primary">
+                        View Full Résumé →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Skills Section
+        - Grid layout of technical skills
+        - Organized by category
+        - Each category is an animated card
+    -->
+    <section id="skills" class="bg-light">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Technical Skills</h2>
+
+            <div class="project-grid">
+                <!-- Programming Languages Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Programming Languages</h3>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>Java</span>
+                        <span>JavaScript</span>
+                        <span>TypeScript</span>
+                        <span>C/C++</span>
+                        <span>C#</span>
+                        <span>Go</span>
+                        <span>Rust</span>
+                        <span>Kotlin</span>
+                        <span>Shell scripting</span>
+                    </div>
+                </div>
+
+                <!-- Web Technologies Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Web Development</h3>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Express</span>
+                        <span>Django</span>
+                        <span>Flask</span>
+                        <span>HTML/CSS</span>
+                        <span>Bootstrap</span>
+                        <span>REST APIs</span>
+                    </div>
+                </div>
+
+                <!-- Machine Learning Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Machine Learning & AI</h3>
+                    <div class="tech-stack">
+                        <span>Supervised/Unsupervised Learning</span>
+                        <span>Reinforcement Learning</span>
+                        <span>Deep Learning</span>
+                        <span>TensorFlow</span>
+                        <span>PyTorch</span>
+                        <span>scikit-learn</span>
+                        <span>spaCy</span>
+                        <span>pandas</span>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="tech-stack">
+                        <span>AWS</span>
+                        <span>Docker</span>
+                        <span>CI/CD</span>
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>Lambda</span>
+                        <span>ECS</span>
+                        <span>API Gateway</span>
+                    </div>
+                </div>
+
+                <!-- Databases Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Databases</h3>
+                    <div class="tech-stack">
+                        <span>MongoDB</span>
+                        <span>SQL</span>
+                        <span>NoSQL</span>
+                        <span>DynamoDB</span>
+                        <span>RDS</span>
+                        <span>Aurora</span>
+                    </div>
+                </div>
+
+                <!-- Development Tools Card -->
+                <div class="project-card animate-on-scroll">
+                    <h3>Development Tools</h3>
+                    <div class="tech-stack">
+                        <span>Unix/Linux</span>
+                        <span>Bash</span>
+                        <span>VIM</span>
+                        <span>Jest</span>
+                        <span>JUnit</span>
+                        <span>Eclipse</span>
+                        <span>Agile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Experience Section
+        - Lists work experience in chronological order
+        - Each experience item is animated
+    -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Work Experience</h2>
+
+            <!-- Current Position -->
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Junior Software Engineer Intern - AEYESAFE</h3>
+                    <a href="https://www.aeyesafe.com" target="_blank" style="color: #2d74ed;">https://www.aeyesafe.com</a>
+                </div>
+                <p>October 2024 - Present</p>
+                <ul>
+                    <li>Streamlined workflows by containerizing and deploying applications using Docker, ensuring
+                        consistent
+                        development and testing processes</li>
+                    <li>Designed and implemented scalable cloud infrastructure using AWS services (ECS, Fargate, SQS,
+                        DynamoDB, ECR, ElastiCache)</li>
+                    <li>Created CI/CD pipeline with YAML scripts, reducing deployment time by 50%</li>
+                    <li>Implemented secure user authentication and API interactions using AWS Lambda and API Gateway
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Previous Positions -->
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Course Coordinator - University of Arizona</h3>
+                    <a href="https://www.arizona.edu" target="_blank" style="color: #2d74ed;">https://www.arizona.edu</a>
+                </div>
+                <p>August 2024 - December 2024</p>
+                <ul>
+                    <li>Coordinated curriculum across multiple sections for 300+ students in software development</li>
+                    <li>Developed Python scripts for grading automation and data tracking, improving workflow efficiency
+                        by
+                        30%</li>
+                    <li>Created automated scheduling tools and managed course logistics</li>
+                    <li>Collaborated with faculty to enhance student learning experience</li>
+                </ul>
+            </div>
+
+            <div class="experience-item animate-on-scroll">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Undergraduate Teaching Assistant - University of Arizona</h3>
+                    <a href="https://www.arizona.edu" target="_blank" style="color: #2d74ed;">https://www.arizona.edu</a>
+                </div>
+                <p>August 2023 - July 2024</p>
+                <ul>
+                    <li>Mentored 150+ students in Python programming, focusing on coding best practices and algorithm
+                        development</li>
+                    <li>Administered lab sessions focused on hands-on programming exercises</li>
+                    <li>Developed custom Python teaching materials and coding challenges</li>
+                    <li>Provided guidance on complex programming concepts and problem-solving techniques</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Certifications Section
+        - Grid layout of certification cards
+        - Each card has front/back flip animation
+        - Includes modal for expanded certificate view
+    -->
+    <section id="certifications" class="bg-light">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Certifications</h2>
+            <div class="certification-grid">
+
+                <!-- AWS Cloud Practitioner Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Cloud Practitioner Essentials</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSCloudPractitioner.jpg"
+                                alt="AWS Cloud Practitioner Certificate" class="certification-image"
+                                data-certificate="aws-cloud">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AWS Developer Associate Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Developer - Associate</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Dec 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSDeveloperAssosiate.jpg"
+                                alt="AWS Developer Certificate" class="certification-image" data-certificate="aws-dev">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AWS Machine Learning Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>AWS Certified Machine Learning - Specialty</h3>
+                                <p class="certification-issuer">Amazon Web Services</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AWSMachineLearningSpeciality.jpg"
+                                alt="AWS Machine Learning Certificate" class="certification-image"
+                                data-certificate="aws-ml">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applied ML Python Card -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>Applied Machine Learning in Python</h3>
+                                <p class="certification-issuer">University of Michigan</p>
+                                <p class="certification-date">Issued Sep 2024</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/AppliedMLInPython.jpg" alt="Applied ML Certificate"
+                                class="certification-image" data-certificate="python-ml">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Design -->
+                <div class="certification-card animate-on-scroll">
+                    <div class="certification-card-inner">
+                        <div class="certification-card-front">
+                            <div class="certification-icon">
+                                <i class="fa-solid fa-display"></i>
+                            </div>
+                            <div class="certification-content">
+                                <h3>Web Design for Everybody</h3>
+                                <p class="certification-issuer">University of Michigan</p>
+                                <p class="certification-date">Issued Jun 2023</p>
+                                <span class="certification-verify">Hover to view certificate →</span>
+                            </div>
+                        </div>
+                        <div class="certification-card-back">
+                            <img src="assets/images/certificates/WebDesign.jpg"
+                                alt="Web Design for Everybody Certificate" class="certification-image"
+                                data-certificate="Web-Design">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Modal -->
+        <div class="modal" id="certificateModal">
+            <img class="modal-content" id="modalImage">
+        </div>
+    </section>
+
+
+    <!--
+        Projects Section
+        - Grid layout of project cards
+        - Each card shows project details and tech stack
+    -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+
+            <div class="project-grid">
+                <!-- CSC110 Coding Platform -->
+                <a href="https://csc110-coding-platform.com" target="_blank" class="project-card animate-on-scroll">
+                    <h3>CSC110 Coding Platform</h3>
+                    <p>Developed a full-stack educational platform featuring interactive code editor, real-time Python
+                        execution, and automated test validation, resulting in 40% increased student engagement.</p>
+                    <div class="tech-stack">
+                        <span>React.js</span>
+                        <span>Node.js</span>
+                        <span>Express.js</span>
+                        <span>SQL</span>
+                        <span>JWT</span>
+                    </div>
+                </a>
+
+                <!-- AI Glucose Project -->
+                <div class="project-card animate-on-scroll">
+                    <h3><span class="project-link">AI Glucose</span></h3>
+                    <p>Designed an AI-powered app to predict blood sugar spikes and recommend insulin dosages using
+                        Python and machine learning frameworks.</p>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>Flask</span>
+                    </div>
+                </div>
+
+                <!-- ML Classifier Project -->
+                <div class="project-card animate-on-scroll">
+                    <h3><span class="project-link">ML Classifier Web App</span></h3>
+                    <p>Developed a full-stack web application for choosing different machine learning classifiers and
+                        visualizing model performance.</p>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>scikit-learn</span>
+                        <span>D3.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--
+        Contact Section
+        - Contact form with required fields
+        - Animated on scroll
+    -->
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-content">
+                <div class="contact-form-wrapper">
+                    <h2 class="section-title animate-on-scroll">Let's Connect</h2>
+                    <p class="contact-subtitle">I'm always interested in hearing about new projects and opportunities.</p>
+
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form animate-on-scroll">
+                        <input type="hidden" name="access_key" value="98c28d7f-582b-4507-9de6-7bbf78f50809">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Name</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-comment-alt input-icon"></i>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Message</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-decoration">
+                    <div class="decoration-image">
+                        <img src="assets/images/me.jpeg" alt="Profile Picture">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <canvas id="successCanvas"></canvas>
+        <div class="success-message">
+            <div class="success-icon">✨</div>
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for reaching out. I'll get back to you soon!</p>
+            <button class="close-button">Close</button>
+        </div>
+    </section>
+
+
+    <!--
+        Footer Section
+        - Copyright information
+        - Social media links
+        - Dynamic year update via JavaScript
+    -->
+    <footer>
+        <div class="container">
+            <p>© <span id="currentYear"></span> Garegin Mazmanyan</p>
+
+            <div class="social-links">
+                <a href="https://github.com/tothelast" target="_blank" aria-label="GitHub Profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
 
     <!-- Main JavaScript Files -->
     <script src="assets/js/main.js"></script>

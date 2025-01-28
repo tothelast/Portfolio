@@ -5,37 +5,43 @@ class ChatBot {
         this.websiteContent = this.cleanWebsiteContent(document.documentElement.innerText);
         // Define section keywords with variations
         this.sectionKeywords = {
-            'about': {
+            about: {
                 selector: '#about',
-                keywords: ['about garegin', 'background', 'introduction']
+                keywords: ['about garegin', 'background', 'introduction'],
             },
-            'skills': {
+            skills: {
                 selector: '#skills',
-                keywords: ['skills', 'technologies', 'tech stack', 'technical skills', 'programming']
+                keywords: [
+                    'skills',
+                    'technologies',
+                    'tech stack',
+                    'technical skills',
+                    'programming',
+                ],
             },
-            'experience': {
+            experience: {
                 selector: '#experience',
-                keywords: ['experience', 'work', 'job', 'career', 'employment']
+                keywords: ['experience', 'work', 'job', 'career', 'employment'],
             },
-            'certifications': {
+            certifications: {
                 selector: '#certifications',
-                keywords: ['certifications', 'certificates', 'certification', 'certified']
+                keywords: ['certifications', 'certificates', 'certification', 'certified'],
             },
-            'projects': {
+            projects: {
                 selector: '#projects',
-                keywords: ['projects', 'work', 'applications', 'project']
+                keywords: ['projects', 'work', 'applications', 'project'],
             },
-            'contact': {
+            contact: {
                 selector: '#contact',
-                keywords: ['contact', 'reach', 'message', 'email']
-            }
+                keywords: ['contact', 'reach', 'message', 'email'],
+            },
         };
         this.funnyIntros = [
             "Hey there! 👋 I'm Garegin's digital mini-me, here to help you explore his awesome portfolio!",
             "Welcome! 🚀 I'm Garegin's AI assistant, and I know all his secrets (well, the professional ones anyway)!",
             "Hi! I'm the friendly AI that Garegin built to chat with awesome people like you! How can I help?",
             "Greetings! 🌟 I'm your guide to all things Garegin - think of me as his portfolio's tour guide!",
-            "Hello! I'm Garegin's AI sidekick, ready to help you discover his amazing work and skills!"
+            "Hello! I'm Garegin's AI sidekick, ready to help you discover his amazing work and skills!",
         ];
         this.createChatInterface();
         this.initializeEventListeners();
@@ -99,7 +105,7 @@ class ChatBot {
         const lowercaseMsg = message.toLowerCase();
         for (const [section, data] of Object.entries(this.sectionKeywords)) {
             // Check if any of the section's keywords are present in the message
-            if (data.keywords.some(keyword => lowercaseMsg.includes(keyword))) {
+            if (data.keywords.some((keyword) => lowercaseMsg.includes(keyword))) {
                 return { section, selector: data.selector };
             }
         }
@@ -111,7 +117,7 @@ class ChatBot {
         if (section) {
             section.scrollIntoView({
                 behavior: 'smooth',
-                block: 'start'
+                block: 'start',
             });
         }
     }
@@ -165,7 +171,8 @@ class ChatBot {
         const messagesContainer = document.querySelector('.chat-messages');
         const typingDiv = document.createElement('div');
         typingDiv.className = 'typing-indicator';
-        typingDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+        typingDiv.innerHTML =
+            '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
         messagesContainer.appendChild(typingDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
@@ -208,21 +215,21 @@ class ChatBot {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`
+                    'Authorization': 'Bearer sk-0897e3ee55fd4c5d90bff889d585ee0a'
                 },
                 body: JSON.stringify({
                     model: 'deepseek-chat',
                     messages: [
                         { role: 'system', content: systemPrompt },
-                        ...this.messages.map(msg => ({
+                        ...this.messages.map((msg) => ({
                             role: msg.sender === 'user' ? 'user' : 'assistant',
-                            content: msg.text
+                            content: msg.text,
                         })),
-                        { role: 'user', content: userMessage }
+                        { role: 'user', content: userMessage },
                     ],
                     max_tokens: 500,
-                    temperature: 0.7
-                })
+                    temperature: 0.7,
+                }),
             });
 
             if (!response.ok) {
