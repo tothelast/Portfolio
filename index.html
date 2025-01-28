@@ -516,27 +516,56 @@
         - Contact form with required fields
         - Animated on scroll
     -->
-    <section id="contact" class="bg-light">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">Contact Me</h2>
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-content">
+                <div class="contact-form-wrapper">
+                    <h2 class="section-title animate-on-scroll">Let's Connect</h2>
+                    <p class="contact-subtitle">I'm always interested in hearing about new projects and opportunities.</p>
 
-            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form animate-on-scroll">
-                <input type="hidden" name="access_key" value="98c28d7f-582b-4507-9de6-7bbf78f50809">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn-primary">Send Message</button>
-            </form>
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form animate-on-scroll">
+                        <input type="hidden" name="access_key" value="98c28d7f-582b-4507-9de6-7bbf78f50809">
 
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Name</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-comment-alt input-icon"></i>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Message</label>
+                                <div class="input-border"></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane btn-icon"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-decoration">
+                    <div class="decoration-image">
+                        <img src="assets/images/me.jpeg" alt="Profile Picture">
+                    </div>
+                </div>
+            </div>
         </div>
         <canvas id="successCanvas"></canvas>
         <div class="success-message">
