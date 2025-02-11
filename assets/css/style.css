@@ -152,6 +152,16 @@ nav a {
   opacity: 0.8;
 }
 
+/* Resume Link */
+.social-links .resume-link {
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.social-links .resume-link:hover {
+  opacity: 0.8;
+}
+
 /* Under section 8. Footer, add: */
 footer .social-links {
   margin-top: 1rem;
