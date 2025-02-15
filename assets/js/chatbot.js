@@ -211,11 +211,10 @@ class ChatBot {
         Example: Instead of "**CSC110 Coding Platform**", say "CSC110 Coding Platform"`;
 
         try {
-            const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+            const response = await fetch('https://deepseek-proxy.garegin-ma.workers.dev', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer sk-0897e3ee55fd4c5d90bff889d585ee0a'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     model: 'deepseek-chat',
