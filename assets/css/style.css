@@ -16,11 +16,15 @@
    1. CSS Variables & Reset
    ============================================= */
 :root {
-  --primary-color: #1e6dae;
-  --secondary-color: #2d74ed;
-  --accent-color: #128dff;
-  --text-color: #1a202c;
-  --light-bg: #f7fafc;
+  --primary-color: #1e3a8a;
+  --secondary-color: #3b82f6;
+  --accent-color: #06b6d4;
+  --text-color: #1f2937;
+  --light-bg: #f8fafc;
+  --timeline-color: #e5e7eb;
+  --timeline-active: #3b82f6;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -193,22 +197,86 @@ footer .social-links a:hover {
 
 .project-card {
   background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
   transition: all 0.3s ease;
   cursor: pointer;
   display: block;
   text-decoration: none;
   color: inherit;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .project-card:hover {
-  background: #ebedef;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
   text-decoration: none;
   color: inherit;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.featured-project {
+  border: 2px solid var(--accent-color);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.project-link-icon {
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .project-link-icon {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.project-icon {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+}
+
+.project-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.project-features span {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.8;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
 }
 
 .project-card h3 {
@@ -269,6 +337,189 @@ footer .social-links a:hover {
 
 .experience-item li {
   margin-bottom: 0.5rem;
+}
+
+/* =============================================
+   5b. Timeline Styles
+   ============================================= */
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--timeline-active), var(--timeline-color));
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.timeline-item:nth-child(odd) {
+  flex-direction: row;
+}
+
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline-year {
+  flex: 0 0 140px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  text-align: center;
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 25px;
+  border: 2px solid var(--timeline-active);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-content {
+  flex: 1;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--accent-color);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline-content:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.timeline-content h3 {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.timeline-content h4 {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.timeline-content p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.timeline-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.timeline-content ul li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.timeline-content ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+/* Timeline Skills Styling */
+.timeline-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.timeline-skills span {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-skills span:hover {
+  background: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+/* About Section Enhancements */
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.about-intro {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.highlight-item:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.highlight-item i {
+  font-size: 2rem;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.highlight-item span {
+  font-weight: 500;
+  color: var(--text-color);
+  line-height: 1.4;
 }
 
 /* =============================================
@@ -748,6 +999,56 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
+  }
+
+  /* Timeline Mobile Layout */
+  .timeline-container::before {
+    left: 20px;
+    transform: none;
+  }
+
+  .timeline-item {
+    flex-direction: column !important;
+    margin-left: 40px;
+    gap: 1rem;
+  }
+
+  .timeline-year {
+    flex: none;
+    align-self: flex-start;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    margin-left: -20px;
+  }
+
+  .timeline-content {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+
+  /* About Section Mobile */
+  .about-highlights {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .highlight-item {
+    padding: 1rem;
+  }
+
+  .highlight-item i {
+    font-size: 1.5rem;
+  }
+
+  /* Projects Mobile Enhancement */
+  .project-features {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .project-features span {
+    align-self: flex-start;
+    font-size: 0.8rem;
   }
 }
 

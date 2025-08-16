@@ -9,19 +9,23 @@ class ChatBot {
                 selector: '#about',
                 keywords: ['about garegin', 'background', 'introduction'],
             },
-            skills: {
-                selector: '#skills',
+            timeline: {
+                selector: '#timeline',
                 keywords: [
+                    'timeline',
+                    'career',
+                    'journey',
+                    'experience',
+                    'work',
+                    'job',
+                    'employment',
+                    'history',
                     'skills',
                     'technologies',
                     'tech stack',
                     'technical skills',
                     'programming',
                 ],
-            },
-            experience: {
-                selector: '#experience',
-                keywords: ['experience', 'work', 'job', 'career', 'employment'],
             },
             certifications: {
                 selector: '#certifications',
@@ -214,7 +218,7 @@ class ChatBot {
             const response = await fetch('https://deepseek-proxy.garegin-ma.workers.dev', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     model: 'deepseek-chat',
