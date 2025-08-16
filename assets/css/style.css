@@ -79,6 +79,10 @@ section {
   background-color: var(--light-bg);
 }
 
+.bg-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
 /* =============================================
    4. Header & Navigation
    ============================================= */
@@ -378,7 +382,7 @@ footer .social-links a:hover {
 }
 
 .timeline-year {
-  flex: 0 0 140px;
+  flex: 0 0 160px;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--primary-color);
@@ -390,6 +394,7 @@ footer .social-links a:hover {
   box-shadow: var(--card-shadow);
   position: relative;
   z-index: 2;
+  white-space: nowrap;
 }
 
 .timeline-content {
@@ -1019,6 +1024,7 @@ footer {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
     margin-left: -20px;
+    white-space: nowrap;
   }
 
   .timeline-content {
