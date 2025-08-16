@@ -1,6 +1,6 @@
 /**
  * Portfolio Website JavaScript
- * 
+ *
  * This file contains all the interactive functionality for the portfolio website:
  * - Particles background animation
  * - Scroll animations
@@ -22,32 +22,97 @@ const initializeParticles = () => {
     particlesJS('particles-js', {
         particles: {
             number: {
-                value: 80
+                value: 60,
+                density: {
+                    enable: true,
+                    value_area: 800,
+                },
             },
             color: {
-                value: '#ffffff'
+                value: ['#3b82f6', '#06b6d4', '#8b5cf6', '#f59e0b'],
+            },
+            shape: {
+                type: 'circle',
+                stroke: {
+                    width: 2,
+                    color: '#3b82f6',
+                },
             },
             opacity: {
-                value: 0.5
+                value: 0.6,
+                random: false,
+                anim: {
+                    enable: true,
+                    speed: 0.8,
+                    opacity_min: 0.3,
+                    sync: false,
+                },
             },
             size: {
-                value: 3
+                value: 4,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 2,
+                    size_min: 2,
+                    sync: false,
+                },
             },
             line_linked: {
                 enable: true,
-                distance: 150,
-                color: '#ffffff',
-                opacity: 0.4,
-                width: 1
+                distance: 120,
+                color: '#3b82f6',
+                opacity: 0.6,
+                width: 2,
+                shadow: {
+                    enable: true,
+                    color: '#3b82f6',
+                    blur: 5,
+                },
             },
             move: {
                 enable: true,
-                speed: 6
-            }
-        }
+                speed: 2,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'bounce',
+                bounce: false,
+                attract: {
+                    enable: true,
+                    rotateX: 600,
+                    rotateY: 1200,
+                },
+            },
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: 'grab',
+                },
+                onclick: {
+                    enable: true,
+                    mode: 'push',
+                },
+                resize: true,
+            },
+            modes: {
+                grab: {
+                    distance: 140,
+                    line_linked: {
+                        opacity: 0.8,
+                    },
+                },
+                push: {
+                    particles_nb: 4,
+                },
+            },
+        },
+        retina_detect: true,
     });
 };
-
 
 /**
  * Scroll Animation Handler
@@ -56,39 +121,36 @@ const initializeParticles = () => {
 const initializeScrollAnimations = () => {
     const observer = new IntersectionObserver(
         (entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
         },
         {
-            threshold: 0.1
+            threshold: 0.1,
         }
     );
 
     // Observe all elements with animation class
-    document.querySelectorAll('.animate-on-scroll')
-        .forEach(el => observer.observe(el));
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
 };
-
 
 /**
  * Smooth Scrolling Navigation
  * Enables smooth scrolling when clicking on navigation links
  */
 const initializeSmoothScrolling = () => {
-    document.querySelectorAll('nav a').forEach(anchor => {
+    document.querySelectorAll('nav a').forEach((anchor) => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetElement = document.querySelector(this.getAttribute('href'));
             targetElement.scrollIntoView({
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
         });
     });
 };
-
 
 /**
  * Contact Form Handler
@@ -153,9 +215,9 @@ const initializeContactForm = () => {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        particles = particles.filter(particle => particle.opacity > 0);
+        particles = particles.filter((particle) => particle.opacity > 0);
 
-        particles.forEach(particle => {
+        particles.forEach((particle) => {
             particle.update();
             particle.draw(ctx);
         });
@@ -221,8 +283,8 @@ const initializeContactForm = () => {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    Accept: 'application/json',
+                },
             });
 
             const data = await response.json();
@@ -260,7 +322,6 @@ const initializeContactForm = () => {
         }
     });
 };
-
 
 /**
  * Certificate Modal Handler
@@ -357,7 +418,8 @@ const initializeCertificateModal = () => {
             // First tap to flip
             card.addEventListener('click', (e) => {
                 if (!isFlipped) {
-                    card.querySelector('.certification-card-inner').style.transform = 'rotateY(180deg)';
+                    card.querySelector('.certification-card-inner').style.transform =
+                        'rotateY(180deg)';
                     isFlipped = true;
                     e.stopPropagation();
                 }
@@ -389,13 +451,21 @@ const initializeCertificateModal = () => {
         });
 
         // Mobile swipe navigation
-        modal.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
+        modal.addEventListener(
+            'touchstart',
+            (e) => {
+                touchStartX = e.touches[0].clientX;
+            },
+            { passive: true }
+        );
 
-        modal.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Prevent page scroll while swiping
-        }, { passive: false });
+        modal.addEventListener(
+            'touchmove',
+            (e) => {
+                e.preventDefault(); // Prevent page scroll while swiping
+            },
+            { passive: false }
+        );
 
         modal.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].clientX;
@@ -416,7 +486,7 @@ const initializeCertificateModal = () => {
         if (e.target === modal) {
             modal.classList.remove('active');
             // Reset all cards when closing modal
-            document.querySelectorAll('.certification-card-inner').forEach(card => {
+            document.querySelectorAll('.certification-card-inner').forEach((card) => {
                 card.style.transform = '';
             });
         }
@@ -430,13 +500,12 @@ const initializeCertificateModal = () => {
         if (e.key === 'Escape') {
             modal.classList.remove('active');
             // Reset all cards when closing modal
-            document.querySelectorAll('.certification-card-inner').forEach(card => {
+            document.querySelectorAll('.certification-card-inner').forEach((card) => {
                 card.style.transform = '';
             });
         }
     });
 };
-
 
 /**
  * Update Copyright Year
@@ -445,7 +514,6 @@ const initializeCertificateModal = () => {
 const updateCopyrightYear = () => {
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 };
-
 
 /**
  * Initialize All Functionality
@@ -459,7 +527,6 @@ const initializePortfolio = () => {
     initializeCertificateModal();
     updateCopyrightYear();
 };
-
 
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePortfolio);
