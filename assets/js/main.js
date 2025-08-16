@@ -2,7 +2,7 @@
  * Portfolio Website JavaScript
  *
  * This file contains all the interactive functionality for the portfolio website:
- * - Particles background animation
+ * - Neural network background animation
  * - Scroll animations
  * - Smooth scrolling navigation
  * - Contact form handling
@@ -15,10 +15,16 @@ const isMobileDevice = () => {
 };
 
 /**
- * Particles.js Configuration
- * Creates an interactive particle background in the header
+ * Header State Management
+ * Manages the toggle between neural network and traditional header
  */
-const initializeParticles = () => {
+let isNetworkMode = false; // Start in traditional mode
+let neuralNetworkCleanup = null;
+
+/**
+ * Initialize particles.js for traditional mode
+ */
+const initializeParticlesJS = () => {
     particlesJS('particles-js', {
         particles: {
             number: {
@@ -112,6 +118,289 @@ const initializeParticles = () => {
         },
         retina_detect: true,
     });
+};
+
+/**
+ * Show traditional header elements
+ */
+const showTraditionalHeader = () => {
+    const elements = [
+        'profileImage',
+        'profileName',
+        'profileTitle',
+        'socialLinks',
+        'scrollIndicator',
+    ];
+
+    elements.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'block';
+            // Force reflow
+            element.offsetHeight;
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }
+    });
+};
+
+/**
+ * Hide traditional header elements
+ */
+const hideTraditionalHeader = () => {
+    const elements = [
+        'profileImage',
+        'profileName',
+        'profileTitle',
+        'socialLinks',
+        'scrollIndicator',
+    ];
+
+    elements.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 500);
+        }
+    });
+};
+
+/**
+ * Toggle between neural network and traditional header
+ */
+const toggleHeaderMode = () => {
+    const hideBtn = document.getElementById('hideNetworkBtn');
+    const particlesContainer = document.getElementById('particles-js');
+
+    if (isNetworkMode) {
+        // Switch to traditional mode
+        isNetworkMode = false;
+
+        // Clean up neural network
+        if (neuralNetworkCleanup) {
+            neuralNetworkCleanup();
+            neuralNetworkCleanup = null;
+        }
+
+        // Clear the particles container
+        particlesContainer.innerHTML = '';
+
+        // Initialize particles.js
+        initializeParticlesJS();
+
+        // Position button for traditional mode (top)
+        positionButtonForTraditional(hideBtn);
+
+        // Show traditional header elements
+        showTraditionalHeader();
+
+        // Update button text for traditional mode (when switching to traditional, button shows option to go back to network)
+        hideBtn.querySelector('span').textContent = 'Show Network';
+
+        // Update icon with simpler approach
+        hideBtn.innerHTML = '<span>Show Network</span><i class="fas fa-brain"></i>';
+
+        // Re-apply button styling after innerHTML change
+        applyButtonStyling(hideBtn);
+
+        // Re-attach event listeners since innerHTML was changed
+        attachButtonEvents(hideBtn);
+    } else {
+        // Switch to network mode
+        isNetworkMode = true;
+
+        // Clean up particles.js
+        if (window.pJSDom && window.pJSDom.length > 0) {
+            window.pJSDom[0].pJS.fn.vendors.destroypJS();
+            window.pJSDom = [];
+        }
+
+        // Clear the particles container
+        particlesContainer.innerHTML = '';
+
+        // Initialize neural network
+        neuralNetworkCleanup = initializeNeuralNetwork();
+
+        // Position button for network mode (center)
+        positionButtonForNetwork(hideBtn);
+
+        // Hide traditional header elements
+        hideTraditionalHeader();
+
+        // Update button text for network mode (when switching to network, button shows option to go to main)
+        hideBtn.querySelector('span').textContent = 'Go to Main';
+
+        // Update icon with simpler approach
+        hideBtn.innerHTML = '<span>Go to Main</span><i class="fas fa-home"></i>';
+
+        // Re-apply button styling after innerHTML change
+        applyButtonStyling(hideBtn);
+
+        // Re-attach event listeners since innerHTML was changed
+        attachButtonEvents(hideBtn);
+    }
+};
+
+/**
+ * Attach button event listeners
+ */
+const attachButtonEvents = (hideBtn) => {
+    hideBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        toggleHeaderMode();
+    });
+
+    // Add hover effects
+    hideBtn.addEventListener('mouseenter', () => {
+        hideBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+        hideBtn.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+        hideBtn.style.color = 'rgba(255, 255, 255, 0.95)';
+        hideBtn.style.opacity = '0.95';
+
+        // Apply scale based on current mode
+        if (isNetworkMode) {
+            hideBtn.style.transform = 'translate(-50%, -50%) scale(1.02)';
+        } else {
+            hideBtn.style.transform = 'translateX(-50%) scale(1.02)';
+        }
+
+        hideBtn.style.boxShadow =
+            '0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+
+        // Icon hover effect
+        const currentIcon = hideBtn.querySelector('i');
+        if (currentIcon) {
+            currentIcon.style.transform = 'scale(1.1) rotate(5deg)';
+            currentIcon.style.color = 'rgba(255, 255, 255, 0.95)';
+        }
+    });
+
+    hideBtn.addEventListener('mouseleave', () => {
+        hideBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+        hideBtn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+        hideBtn.style.color = 'rgba(255, 255, 255, 0.8)';
+        hideBtn.style.opacity = '0.8';
+
+        // Reset transform based on current mode
+        if (isNetworkMode) {
+            hideBtn.style.transform = 'translate(-50%, -50%)';
+        } else {
+            hideBtn.style.transform = 'translateX(-50%)';
+        }
+
+        hideBtn.style.boxShadow =
+            '0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+
+        // Reset icon
+        const currentIcon = hideBtn.querySelector('i');
+        if (currentIcon) {
+            currentIcon.style.transform = 'scale(1) rotate(0deg)';
+            currentIcon.style.color = 'rgba(255, 255, 255, 0.8)';
+        }
+    });
+};
+
+/**
+ * Apply button styling (used after innerHTML changes)
+ */
+const applyButtonStyling = (hideBtn) => {
+    const buttonStyles = {
+        position: 'absolute',
+        background: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '50px',
+        color: 'rgba(255, 255, 255, 0.8)',
+        padding: '0.75rem 1.5rem',
+        cursor: 'pointer',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        zIndex: '99999',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        fontSize: '0.95rem',
+        fontWeight: '500',
+        backdropFilter: 'blur(15px)',
+        WebkitBackdropFilter: 'blur(15px)',
+        pointerEvents: 'auto',
+        opacity: '0.8',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+        letterSpacing: '0.025em',
+        minWidth: '160px',
+        justifyContent: 'center',
+    };
+
+    Object.assign(hideBtn.style, buttonStyles);
+
+    // Style the icon
+    const icon = hideBtn.querySelector('i');
+    if (icon) {
+        icon.style.fontSize = '0.9rem';
+        icon.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        icon.style.color = 'rgba(255, 255, 255, 0.8)';
+    }
+};
+
+/**
+ * Position button for network mode (center)
+ */
+const positionButtonForNetwork = (hideBtn) => {
+    hideBtn.style.top = '50%';
+    hideBtn.style.left = '50%';
+    hideBtn.style.transform = 'translate(-50%, -50%)';
+};
+
+/**
+ * Position button for traditional mode (top)
+ */
+const positionButtonForTraditional = (hideBtn) => {
+    hideBtn.style.top = '2rem';
+    hideBtn.style.left = '50%';
+    hideBtn.style.transform = 'translateX(-50%)';
+};
+
+/**
+ * Initialize header button functionality
+ */
+const initializeHeaderToggle = () => {
+    const hideBtn = document.getElementById('hideNetworkBtn');
+    if (hideBtn) {
+        // Apply initial styling and positioning for traditional mode
+        applyButtonStyling(hideBtn);
+        positionButtonForTraditional(hideBtn);
+
+        // Show traditional header elements since we start in traditional mode
+        showTraditionalHeader();
+
+        // Attach event listeners
+        attachButtonEvents(hideBtn);
+    }
+};
+
+/**
+ * Neural Network Visualization
+ * Creates an interactive neural network animation showing forward pass and backpropagation
+ */
+const initializeParticles = () => {
+    // Start with traditional view (particles.js) as the main page
+    console.log('Initializing with traditional particles view');
+    initializeParticlesJS();
+    isNetworkMode = false;
+
+    // Make sure button shows correct state for traditional mode
+    const hideBtn = document.getElementById('hideNetworkBtn');
+    if (hideBtn) {
+        hideBtn.querySelector('span').textContent = 'Show Network';
+        const icon = hideBtn.querySelector('i');
+        if (icon) {
+            icon.className = 'fas fa-brain';
+        }
+    }
 };
 
 /**
@@ -521,6 +810,7 @@ const updateCopyrightYear = () => {
  */
 const initializePortfolio = () => {
     initializeParticles();
+    initializeHeaderToggle();
     initializeScrollAnimations();
     initializeSmoothScrolling();
     initializeContactForm();

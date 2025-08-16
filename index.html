@@ -101,11 +101,11 @@
     -->
     <header>
         <div class="container">
-            <img src="assets/images/me.jpeg" alt="Profile Picture" class="profile-img animate-on-scroll">
-            <h1 class="animate-on-scroll">Garegin Mazmanyan</h1>
-            <p class="animate-on-scroll">Autonomous Systems Engineer</p>
+            <img src="assets/images/me.jpeg" alt="Profile Picture" class="profile-img animate-on-scroll" id="profileImage" style="display: none;">
+            <h1 class="animate-on-scroll" id="profileName" style="display: none;">Garegin Mazmanyan</h1>
+            <p class="animate-on-scroll" id="profileTitle" style="display: none;">Autonomous Systems Engineer</p>
 
-            <div class="social-links animate-on-scroll">
+            <div class="social-links animate-on-scroll" id="socialLinks" style="display: none;">
                 <a href="https://www.linkedin.com/in/gareginma" target="_blank" aria-label="LinkedIn Profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
@@ -115,8 +115,14 @@
             </div>
         </div>
 
+        <!-- Hide Network Button -->
+        <button id="hideNetworkBtn" class="hide-network-btn">
+            <span>Show Network</span>
+            <i class="fas fa-brain"></i>
+        </button>
+
         <!-- Scroll Down Indicator -->
-        <div class="scroll-indicator animate-on-scroll" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'});">
+        <div class="scroll-indicator animate-on-scroll" id="scrollIndicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'});" style="display: none;">
             <div class="scroll-arrow">
                 <i class="fas fa-chevron-down"></i>
             </div>
@@ -597,6 +603,7 @@
     </footer>
 
     <!-- Main JavaScript Files -->
+    <script src="assets/js/neural-network.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/chatbot.js"></script>
 

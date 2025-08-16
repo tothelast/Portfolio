@@ -136,7 +136,7 @@ header::before {
   display: block;
   position: relative;
   z-index: 2;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
 }
 
 .profile-img:hover {
@@ -153,6 +153,7 @@ header h1 {
   font-weight: 700;
   text-align: center;
   width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 header p {
@@ -163,6 +164,7 @@ header p {
   margin-bottom: 2rem;
   text-align: center;
   width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .container {
@@ -180,6 +182,65 @@ header .container {
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+/* Hide Network Button */
+.hide-network-btn {
+  position: absolute !important;
+  top: 2rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.025em;
+}
+
+.hide-network-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+  transform: translateX(-50%) translateY(-2px) !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    0 3px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hide-network-btn i {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.85rem;
+}
+
+.hide-network-btn:hover i {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Hidden state for the hide button */
+.hide-network-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-30px) scale(0.9);
 }
 
 /* Scroll Down Indicator */
@@ -268,6 +329,21 @@ header .container {
   z-index: 1;
 }
 
+/* Neural Network Canvas Styles */
+.particles-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0.9;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+
+
 /* Navigation */
 nav {
   background-color: var(--secondary-color);
@@ -299,6 +375,7 @@ nav a {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .social-links a {
