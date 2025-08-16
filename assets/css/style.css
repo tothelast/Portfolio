@@ -698,7 +698,7 @@ footer .social-links a:hover {
    ============================================= */
 #contact {
   position: relative;
-  background: linear-gradient(135deg, rgba(30, 109, 174, 0.05), rgba(45, 116, 237, 0.1));
+  background: white;
   min-height: 100vh;
   display: flex;
   align-items: center;
