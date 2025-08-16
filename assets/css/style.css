@@ -188,12 +188,12 @@ header p {
   cursor: pointer;
   transition: all 0.3s ease;
   pointer-events: auto;
-  margin-left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
+  margin-left: -20px;
 }
 
 .scroll-indicator:hover {
@@ -214,7 +214,6 @@ header p {
   transition: all 0.3s ease;
   cursor: pointer;
   pointer-events: auto;
-  margin: 0 auto;
   position: relative;
 }
 
@@ -225,7 +224,7 @@ header p {
   text-align: center;
   line-height: 1;
   position: relative;
-  top: 1px; /* Fine-tune vertical centering */
+  left: -8px;
 }
 
 .scroll-indicator:hover .scroll-arrow {
@@ -1198,6 +1197,7 @@ footer {
   /* Scroll Indicator Mobile */
   .scroll-indicator {
     bottom: 1rem;
+    margin-left: -20px;
   }
 
   .scroll-arrow {
@@ -1207,6 +1207,7 @@ footer {
 
   .scroll-arrow i {
     font-size: 1rem;
+    left: -6px;
   }
 
   /* About Section Mobile */
