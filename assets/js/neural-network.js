@@ -14,12 +14,15 @@ const initializeNeuralNetwork = () => {
     // Neural network configuration
     const config = {
         layers: [3, 4, 3, 1], // Input, Hidden1, Hidden2, Output
-        neuronRadius: isMobileDevice() ? 14 : 20,
+        neuronRadius: Math.max(
+            14,
+            Math.min(24, Math.round(Math.min(window.innerWidth, window.innerHeight) / 100))
+        ),
         connectionOpacity: 0.2,
         activeConnectionOpacity: 0.9,
-        animationSpeed: 0.02,
-        pulseSpeed: 0.03,
-        trainingCycleDuration: 4000, // Time for one complete training cycle
+        animationSpeed: 0.025,
+        pulseSpeed: 0.045,
+        trainingCycleDuration: 3000, // Slightly slower than before
         learningRate: 0.3,
     };
 
@@ -34,6 +37,12 @@ const initializeNeuralNetwork = () => {
     let currentLoss = 1.0;
     let targetOutput = 0.8; // Target value for training
     let isTrainingComplete = false;
+    let isPaused = false;
+    let speedMultiplier = 1;
+    // Track logical canvas size (CSS pixels) and device pixel ratio
+    let cssWidth = 0;
+    let cssHeight = 0;
+    let devicePixelRatioCached = 1;
 
     // Fixed input values for consistency during training
     let inputValues = [0.7, 0.3, 0.9];
@@ -95,21 +104,31 @@ const initializeNeuralNetwork = () => {
                 ctx.stroke();
             }
 
-            // Draw activation value
+            // Draw value text with responsive font sizing (fixed 2 decimals)
             ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-            ctx.font = `${isMobileDevice() ? '10px' : '12px'} monospace`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            // Show different values based on layer
+            const approxMaxTextWidth = currentRadius * 1.6; // leave some padding within the circle
+            const baseFontPx = Math.max(8, Math.min(14, Math.floor(currentRadius * 0.9)));
+
             let displayText;
             if (this.layer === 0) {
-                displayText = this.activation.toFixed(2); // Input values stay constant
+                displayText = this.activation.toFixed(2);
             } else if (this.layer === config.layers.length - 1) {
-                // Output layer shows loss instead of activation
-                displayText = currentLoss.toFixed(3);
+                displayText = currentLoss.toFixed(2);
             } else {
-                displayText = this.activation.toFixed(2); // Hidden layer activations
+                displayText = this.activation.toFixed(2);
+            }
+
+            // Set initial font and shrink if needed to fit
+            let fontPx = baseFontPx;
+            ctx.font = `${fontPx}px monospace`;
+            let measured = ctx.measureText(displayText).width;
+            while (measured > approxMaxTextWidth && fontPx > 7) {
+                fontPx -= 1;
+                ctx.font = `${fontPx}px monospace`;
+                measured = ctx.measureText(displayText).width;
             }
 
             ctx.fillText(displayText, this.x, this.y);
@@ -168,7 +187,7 @@ const initializeNeuralNetwork = () => {
             this.progress = 0;
             this.x = from.x;
             this.y = from.y;
-            this.speed = 0.025;
+            this.speed = 0.02; // slower particle motion so flow is visible
         }
 
         update() {
@@ -230,9 +249,33 @@ const initializeNeuralNetwork = () => {
         return 0.5 * Math.pow(predicted - target, 2);
     }
 
+    let resizeObserver = null;
+
     function resizeCanvas() {
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
+        const displayWidth = Math.max(1, container.clientWidth);
+        const displayHeight = Math.max(1, container.clientHeight);
+        const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+
+        // Cache logical size and dpr for layout math in CSS pixels
+        cssWidth = displayWidth;
+        cssHeight = displayHeight;
+        devicePixelRatioCached = dpr;
+
+        // Set CSS size so layout is correct
+        canvas.style.width = `${displayWidth}px`;
+        canvas.style.height = `${displayHeight}px`;
+
+        // Set backing store size for crisp rendering
+        const needResize =
+            canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr;
+        if (needResize) {
+            canvas.width = displayWidth * dpr;
+            canvas.height = displayHeight * dpr;
+        }
+
+        // Normalize drawing to CSS pixels
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
         setupNeuralNetwork();
     }
 
@@ -240,20 +283,48 @@ const initializeNeuralNetwork = () => {
         neurons = [];
         connections = [];
 
-        const padding = 80;
-        const layerSpacing = (canvas.width - padding * 2) / (config.layers.length - 1);
+        const padding = Math.max(
+            40,
+            Math.min(90, Math.round(Math.min(cssWidth, cssHeight) * 0.07))
+        );
+        let layerSpacing = (cssWidth - padding * 2) / (config.layers.length - 1);
 
         // Create neurons
         config.layers.forEach((layerSize, layerIndex) => {
-            const neuronSpacing = Math.max(
-                40,
-                (canvas.height - padding * 2) / Math.max(1, layerSize - 1)
+            let neuronSpacing = Math.max(
+                32,
+                (cssHeight - padding * 2) / Math.max(1, layerSize - 1)
             );
-            const startY = (canvas.height - (layerSize - 1) * neuronSpacing) / 2;
+            // Calculate start so top/bottom neurons are inside the safe bounds
+            let startY = (cssHeight - (layerSize - 1) * neuronSpacing) / 2;
+            const minY = padding + config.neuronRadius + 6;
+            const maxY = cssHeight - padding - config.neuronRadius - 6;
+            let topY = startY;
+            let bottomY = startY + (layerSize - 1) * neuronSpacing;
+            if (topY < minY) {
+                startY += minY - topY;
+                topY = startY;
+                bottomY = startY + (layerSize - 1) * neuronSpacing;
+            }
+            if (bottomY > maxY) {
+                startY -= bottomY - maxY;
+                topY = startY;
+                bottomY = startY + (layerSize - 1) * neuronSpacing;
+                if (topY < minY) {
+                    // Tight height: compress spacing uniformly
+                    const segments = Math.max(1, layerSize - 1);
+                    const available = maxY - minY;
+                    neuronSpacing = Math.max(24, available / segments);
+                    startY = minY;
+                }
+            }
 
             for (let i = 0; i < layerSize; i++) {
                 const x = padding + layerIndex * layerSpacing;
-                const y = layerSize === 1 ? canvas.height / 2 : startY + i * neuronSpacing;
+                const y =
+                    layerSize === 1
+                        ? Math.round(cssHeight / 2)
+                        : Math.round(startY + i * neuronSpacing);
                 const neuron = new Neuron(x, y, layerIndex, i);
                 neurons.push(neuron);
             }
@@ -314,12 +385,12 @@ const initializeNeuralNetwork = () => {
         const outputNeuron = neurons.find((n) => n.layer === config.layers.length - 1);
         currentLoss = meanSquaredError(outputNeuron.activation, targetOutput);
 
-        // Auto-restart when loss gets very low (essentially solved)
-        if (currentLoss < 0.001 && !isTrainingComplete) {
+        // Auto-restart when loss shows 0.00 on the HUD
+        if (Number(currentLoss.toFixed(2)) === 0 && !isTrainingComplete) {
             isTrainingComplete = true;
             setTimeout(() => {
                 restartTraining();
-            }, 2000); // Wait 2 seconds before restarting to show the success
+            }, 800); // brief pause before restart
         }
     }
 
@@ -416,7 +487,9 @@ const initializeNeuralNetwork = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Update animation progress
-        animationProgress += deltaTime;
+        if (!isPaused) {
+            animationProgress += deltaTime * speedMultiplier;
+        }
 
         // State machine for training cycle
         const cycleDuration = config.trainingCycleDuration;
@@ -450,8 +523,10 @@ const initializeNeuralNetwork = () => {
             if (animationState !== 'updating') {
                 animationState = 'updating';
                 signals = [];
-                updateWeights();
-                trainingIteration++;
+                if (!isPaused) {
+                    updateWeights();
+                    trainingIteration++;
+                }
             }
         } else if (animationProgress >= cycleDuration) {
             // Reset for next cycle
@@ -489,23 +564,16 @@ const initializeNeuralNetwork = () => {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.font = '11px system-ui';
         ctx.textAlign = 'center';
-        const layerLabels = ['Input Layer', 'Hidden Layer 1', 'Hidden Layer 2'];
+        const layerLabels = ['Input', 'Hidden 1', 'Hidden 2'];
         const padding = 80;
-        const layerSpacing = (canvas.width - padding * 2) / (config.layers.length - 1);
+        const layerSpacing = (cssWidth - padding * 2) / (config.layers.length - 1);
 
         layerLabels.forEach((label, index) => {
             const x = padding + index * layerSpacing;
-            ctx.fillText(label, x, 20);
+            ctx.fillText(label, x, Math.max(16, Math.min(28, Math.round(cssHeight * 0.03))));
         });
 
-        // Add specific label for the output neuron indicating it shows loss
-        const outputNeuron = neurons.find((n) => n.layer === config.layers.length - 1);
-        if (outputNeuron) {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.font = '10px system-ui';
-            ctx.textAlign = 'center';
-            ctx.fillText('Loss', outputNeuron.x, outputNeuron.y + outputNeuron.radius + 20);
-        }
+        // Removed loss label box per request
 
         // Draw state indicator
         ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
@@ -525,7 +593,7 @@ const initializeNeuralNetwork = () => {
 
         // Color the text green when training is complete
         ctx.fillStyle = isTrainingComplete ? 'rgba(34, 197, 94, 0.9)' : 'rgba(255, 255, 255, 0.9)';
-        ctx.fillText(stateText, canvas.width - 20, 30);
+        ctx.fillText(stateText, cssWidth - 20, 30);
     }
 
     function restartTraining() {
@@ -547,6 +615,12 @@ const initializeNeuralNetwork = () => {
 
     // Initialize
     window.addEventListener('resize', resizeCanvas);
+    try {
+        resizeObserver = new ResizeObserver(() => resizeCanvas());
+        resizeObserver.observe(container);
+    } catch (_) {
+        // ResizeObserver not available; fallback to window resize only
+    }
     resizeCanvas();
 
     // Start animation
@@ -554,9 +628,109 @@ const initializeNeuralNetwork = () => {
     animate(lastTime);
 
     // Cleanup function
-    return () => {
+    const cleanup = () => {
         if (animationId) {
             cancelAnimationFrame(animationId);
         }
+        window.removeEventListener('resize', resizeCanvas);
+        if (resizeObserver) {
+            try {
+                resizeObserver.unobserve(container);
+            } catch (_) {}
+            try {
+                resizeObserver.disconnect();
+            } catch (_) {}
+        }
     };
+
+    // Expose control API for external UI controls
+    window.neuralNetworkAPI = {
+        setInputs: (values) => {
+            if (!Array.isArray(values) || values.length !== 3) return;
+            // Accept raw slider values (including full left/right), then clamp only for computation
+            inputValues = values.map((v) => Number(v));
+            const inputLayer = neurons.filter((n) => n.layer === 0);
+            inputLayer.forEach((neuron, i) => {
+                const clamped = Math.max(0, Math.min(1, inputValues[i]));
+                neuron.activation = clamped;
+                neuron.targetActivation = clamped;
+            });
+            forwardPass();
+        },
+        setLearningRate: (rate) => {
+            const r = Number(rate);
+            if (!Number.isFinite(r)) return;
+            config.learningRate = Math.max(0.001, Math.min(1.0, r));
+        },
+        setTarget: (t) => {
+            const v = Math.max(0, Math.min(1, Number(t)));
+            targetOutput = v;
+            forwardPass();
+        },
+        setSpeed: (mult) => {
+            const m = Number(mult);
+            if (!Number.isFinite(m)) return;
+            speedMultiplier = Math.max(0.25, Math.min(3, m));
+        },
+        pause: () => {
+            isPaused = true;
+        },
+        resume: () => {
+            isPaused = false;
+        },
+        togglePause: () => {
+            isPaused = !isPaused;
+            return isPaused;
+        },
+        step: () => {
+            const outputNeuron = neurons.find((n) => n.layer === config.layers.length - 1);
+            // One training step
+            forwardPass();
+            backwardPass();
+            updateWeights();
+            trainingIteration++;
+            currentLoss = meanSquaredError(outputNeuron.activation, targetOutput);
+            return trainingIteration;
+        },
+        reset: () => {
+            trainingIteration = 0;
+            animationProgress = 0;
+            animationState = 'initializing';
+            signals = [];
+            currentLoss = 1.0;
+            isTrainingComplete = false;
+            setupNeuralNetwork();
+        },
+        randomizeInputs: () => {
+            inputValues = [Math.random(), Math.random(), Math.random()];
+            const inputLayer = neurons.filter((n) => n.layer === 0);
+            inputLayer.forEach((neuron, i) => {
+                neuron.activation = inputValues[i];
+                neuron.targetActivation = inputValues[i];
+            });
+            forwardPass();
+        },
+        randomizeWeights: () => {
+            connections.forEach((c) => {
+                c.weight = (Math.random() - 0.5) * 2.0;
+                c.gradient = 0;
+            });
+            neurons.forEach((n) => {
+                if (n.layer > 0) n.bias = (Math.random() - 0.5) * 1.0;
+            });
+            forwardPass();
+        },
+        getState: () => ({
+            learningRate: config.learningRate,
+            targetOutput,
+            inputs: [...inputValues],
+            speedMultiplier,
+            loss: currentLoss,
+            iteration: trainingIteration,
+            paused: isPaused,
+        }),
+        cleanup,
+    };
+
+    return cleanup;
 };

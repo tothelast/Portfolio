@@ -31,6 +31,10 @@
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --nn-rail-width: clamp(260px, 26vw, 360px);
+}
+@media (max-width: 1280px) {
+  :root { --nn-rail-width: clamp(220px, 22vw, 300px); }
 }
 
 * {
@@ -187,9 +191,9 @@ header .container {
 /* Hide Network Button */
 .hide-network-btn {
   position: absolute !important;
-  top: 2rem !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
+  top: 1rem !important;
+  left: 2rem !important;
+  transform: none !important;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50px;
@@ -203,8 +207,9 @@ header .container {
   gap: 0.5rem;
   font-size: 0.9rem;
   font-weight: 500;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  /* remove blur to avoid blurring controls underneath on overlap */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   pointer-events: auto !important;
   opacity: 1 !important;
   box-shadow:
@@ -219,7 +224,7 @@ header .container {
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.5);
   color: white;
-  transform: translateX(-50%) translateY(-2px) !important;
+  transform: translateY(-2px) !important; /* prevent horizontal shift */
   box-shadow:
     0 8px 25px rgba(0, 0, 0, 0.15),
     0 3px 8px rgba(0, 0, 0, 0.1),
@@ -334,12 +339,128 @@ header .container {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  /* Let JS manage exact CSS pixel sizing to avoid aspect distortions */
+  width: auto;
+  height: auto;
+  inset: 0;
   background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
   opacity: 0.9;
   z-index: 1;
   pointer-events: auto;
+}
+
+/* Neural Network Controls Rail */
+.nn-controls-rail {
+  position: absolute;
+  top: 6rem; /* sits below the header button */
+  left: 2rem; /* move to left */
+  right: auto;
+  width: var(--nn-rail-width);
+  max-height: calc(100vh - 8rem);
+  overflow: auto;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  color: white;
+  /* remove backdrop-filter to prevent any perceived text blur */
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+/* In network mode, reserve space on the left for the rail so the canvas doesn't sit underneath it */
+.network-mode .particles-container {
+  left: calc(var(--nn-rail-width) + 2rem);
+  right: 0;
+  width: auto;
+}
+
+.nn-controls-section { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.75rem; }
+.nn-controls-row { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+.nn-field { display: grid; grid-template-columns: 1fr; gap: 0.4rem; align-items: center; }
+.nn-field label { font-size: 0.9rem; opacity: 0.95; white-space: nowrap; color: #fff; }
+/* Override global form label rules inside the NN panel */
+.nn-controls-rail label { position: static; left: auto; top: auto; transform: none; pointer-events: auto; }
+.nn-field input[type="range"] { width: 100%; }
+.nn-controls-rail input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  outline: none;
+  padding: 0;
+}
+.nn-controls-rail input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+.nn-controls-rail input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  margin-top: -4px; /* center the thumb on a 6px track */
+}
+.nn-controls-rail input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+.nn-controls-rail input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+.nn-value { font-variant-numeric: tabular-nums; font-size: 0.9rem; text-align: right; justify-self: end; }
+.nn-btn { background: rgba(255, 255, 255, 0.12); color: white; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.2s ease; }
+.nn-btn:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+.nn-stats { display: flex; gap: 1rem; font-size: 0.9rem; opacity: 0.95; }
+
+/* Ensure the header button sits consistently above the rail in network mode */
+.network-mode .hide-network-btn {
+  top: 1rem !important;
+  left: 2rem !important;
+  right: auto !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (max-width: 900px) {
+  .nn-controls-rail {
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 92vw;
+    max-height: 55vh;
+    margin: 0;
+  }
+  .network-mode .particles-container { left: 0; right: 0; width: 100%; }
+  .nn-field { grid-template-columns: 1fr; }
+  .nn-field label { margin-bottom: 0.25rem; }
+  .nn-field input[type="range"] { width: 100%; }
+  .nn-value { justify-self: end; }
+  .hide-network-btn { left: 1rem !important; top: 1rem !important; }
+}
+
+@media (max-width: 1280px) {
+  .nn-controls-rail { padding: 0.75rem 1rem; }
+  .nn-field label { font-size: 0.85rem; }
 }
 
 

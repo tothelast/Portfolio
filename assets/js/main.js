@@ -174,6 +174,7 @@ const hideTraditionalHeader = () => {
 const toggleHeaderMode = () => {
     const hideBtn = document.getElementById('hideNetworkBtn');
     const particlesContainer = document.getElementById('particles-js');
+    const nnControls = document.getElementById('nnControls');
 
     if (isNetworkMode) {
         // Switch to traditional mode
@@ -191,17 +192,21 @@ const toggleHeaderMode = () => {
         // Initialize particles.js
         initializeParticlesJS();
 
+        // Hide controls rail and remove body class
+        if (nnControls) nnControls.style.display = 'none';
+        document.body.classList.remove('network-mode');
+
         // Position button for traditional mode (top)
         positionButtonForTraditional(hideBtn);
 
         // Show traditional header elements
         showTraditionalHeader();
 
-        // Update button text for traditional mode (when switching to traditional, button shows option to go back to network)
-        hideBtn.querySelector('span').textContent = 'Show Network';
+        // Update button text for traditional mode
+        hideBtn.querySelector('span').textContent = 'Play With Neural Nets';
 
         // Update icon with simpler approach
-        hideBtn.innerHTML = '<span>Show Network</span><i class="fas fa-brain"></i>';
+        hideBtn.innerHTML = '<span>Play With Neural Nets</span><i class="fas fa-brain"></i>';
 
         // Re-apply button styling after innerHTML change
         applyButtonStyling(hideBtn);
@@ -224,13 +229,20 @@ const toggleHeaderMode = () => {
         // Initialize neural network
         neuralNetworkCleanup = initializeNeuralNetwork();
 
-        // Position button for network mode (center)
-        positionButtonForNetwork(hideBtn);
+        // Position button to sit at consistent top-left in both modes
+        positionButtonForTraditional(hideBtn);
 
         // Hide traditional header elements
         hideTraditionalHeader();
 
-        // Update button text for network mode (when switching to network, button shows option to go to main)
+        // Show controls rail and add body class to reserve space
+        if (nnControls) nnControls.style.display = 'block';
+        document.body.classList.add('network-mode');
+
+        // Wire controls if present
+        if (nnControls) initializeNNControls();
+
+        // Update button text for network mode
         hideBtn.querySelector('span').textContent = 'Go to Main';
 
         // Update icon with simpler approach
@@ -238,6 +250,9 @@ const toggleHeaderMode = () => {
 
         // Re-apply button styling after innerHTML change
         applyButtonStyling(hideBtn);
+        // In network mode, avoid backdrop blur and ensure placement clear of the rail
+        hideBtn.style.backdropFilter = 'none';
+        hideBtn.style.WebkitBackdropFilter = 'none';
 
         // Re-attach event listeners since innerHTML was changed
         attachButtonEvents(hideBtn);
@@ -262,12 +277,9 @@ const attachButtonEvents = (hideBtn) => {
         hideBtn.style.color = 'rgba(255, 255, 255, 0.95)';
         hideBtn.style.opacity = '0.95';
 
-        // Apply scale based on current mode
-        if (isNetworkMode) {
-            hideBtn.style.transform = 'translate(-50%, -50%) scale(1.02)';
-        } else {
-            hideBtn.style.transform = 'translateX(-50%) scale(1.02)';
-        }
+        // Do not change transform on hover to keep position stationary
+        // Optional: subtle scale without shifting
+        // hideBtn.style.transform = 'scale(1.02)';
 
         hideBtn.style.boxShadow =
             '0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
@@ -286,12 +298,7 @@ const attachButtonEvents = (hideBtn) => {
         hideBtn.style.color = 'rgba(255, 255, 255, 0.8)';
         hideBtn.style.opacity = '0.8';
 
-        // Reset transform based on current mode
-        if (isNetworkMode) {
-            hideBtn.style.transform = 'translate(-50%, -50%)';
-        } else {
-            hideBtn.style.transform = 'translateX(-50%)';
-        }
+        // Keep transform unchanged to avoid jumping
 
         hideBtn.style.boxShadow =
             '0 2px 8px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
@@ -395,7 +402,7 @@ const initializeParticles = () => {
     // Make sure button shows correct state for traditional mode
     const hideBtn = document.getElementById('hideNetworkBtn');
     if (hideBtn) {
-        hideBtn.querySelector('span').textContent = 'Show Network';
+        hideBtn.querySelector('span').textContent = 'Play With Neural Nets';
         const icon = hideBtn.querySelector('i');
         if (icon) {
             icon.className = 'fas fa-brain';
@@ -820,3 +827,112 @@ const initializePortfolio = () => {
 
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', initializePortfolio);
+
+// Neural Network Controls Wiring
+const initializeNNControls = () => {
+    const $ = (id) => document.getElementById(id);
+    const root = $('nnControls');
+    if (!root || root.dataset.bound === '1') return;
+
+    const inputs = [$('nnInput1'), $('nnInput2'), $('nnInput3')];
+    const inputVals = [$('nnInput1Value'), $('nnInput2Value'), $('nnInput3Value')];
+    const target = null;
+    const targetVal = null;
+    const lr = $('nnLR');
+    const lrVal = $('nnLRValue');
+    const speed = null;
+    const speedVal = null;
+    const pauseResume = $('nnPauseResume');
+    const step = $('nnStep');
+    const reset = $('nnReset');
+    const randInputs = $('nnRandInputs');
+    const randWeights = $('nnRandWeights');
+    const lossEl = $('nnLoss');
+    const iterEl = $('nnIter');
+
+    const updateHUD = () => {
+        if (!window.neuralNetworkAPI) return;
+        const state = window.neuralNetworkAPI.getState();
+        // Loss to 2 decimals
+        lossEl.textContent = state.loss.toFixed(2);
+        iterEl.textContent = String(state.iteration);
+        pauseResume.textContent = state.paused ? 'Resume' : 'Pause';
+
+        // Keep sliders in sync with model state (without fighting active drags)
+        if (inputs && inputs.length === 3 && Array.isArray(state.inputs)) {
+            inputs.forEach((slider, idx) => {
+                const current = Number(state.inputs[idx]);
+                // Only update if user is not actively dragging this slider
+                if (document.activeElement !== slider && !Number.isNaN(current)) {
+                    slider.value = String(current);
+                    inputVals[idx].textContent = current.toFixed(2);
+                }
+            });
+        }
+        if (lr && document.activeElement !== lr) {
+            const lrNum = Number(state.learningRate);
+            if (Number.isFinite(lrNum)) {
+                lr.value = String(lrNum);
+                lrVal.textContent = lrNum.toFixed(3);
+            }
+        }
+    };
+
+    if (inputs.every(Boolean)) {
+        inputs.forEach((slider, idx) => {
+            // Ensure thumb can travel fully to both ends without clamping
+            slider.addEventListener('input', () => {
+                const v = Number(slider.value);
+                inputVals[idx].textContent = v.toFixed(2);
+                // Do not clamp the slider values here; send raw slider values
+                window.neuralNetworkAPI?.setInputs(inputs.map((s) => Number(s.value)));
+                updateHUD();
+            });
+
+            // Snap slider thumb exactly to min/max when near edges, so UI shows full travel
+            slider.addEventListener('change', () => {
+                const min = Number(slider.min);
+                const max = Number(slider.max);
+                const step = Number(slider.step) || 0.01;
+                const v = Number(slider.value);
+                if (v <= min + step / 2) slider.value = String(min);
+                if (v >= max - step / 2) slider.value = String(max);
+                inputVals[idx].textContent = Number(slider.value).toFixed(2);
+                window.neuralNetworkAPI?.setInputs(inputs.map((s) => Number(s.value)));
+                updateHUD();
+            });
+        });
+    }
+    // target removed
+    lr?.addEventListener('input', () => {
+        lrVal.textContent = Number(lr.value).toFixed(3);
+        window.neuralNetworkAPI?.setLearningRate(Number(lr.value));
+    });
+    // speed removed
+    pauseResume?.addEventListener('click', () => {
+        const paused = window.neuralNetworkAPI?.togglePause();
+        pauseResume.textContent = paused ? 'Resume' : 'Pause';
+        updateHUD();
+    });
+    step?.addEventListener('click', () => {
+        window.neuralNetworkAPI?.pause();
+        window.neuralNetworkAPI?.step();
+        updateHUD();
+    });
+    reset?.addEventListener('click', () => {
+        window.neuralNetworkAPI?.reset();
+        updateHUD();
+    });
+    randInputs?.addEventListener('click', () => {
+        window.neuralNetworkAPI?.randomizeInputs();
+        setTimeout(updateHUD, 0);
+    });
+    randWeights?.addEventListener('click', () => {
+        window.neuralNetworkAPI?.randomizeWeights();
+        setTimeout(updateHUD, 0);
+    });
+
+    // periodic HUD refresh
+    setInterval(updateHUD, 400);
+    root.dataset.bound = '1';
+};
