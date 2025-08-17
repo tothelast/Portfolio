@@ -439,6 +439,10 @@ header .container {
 }
 
 @media (max-width: 900px) {
+  /* Hide neural network UI on small screens */
+  .hide-network-btn { display: none !important; }
+  .nn-controls-rail { display: none !important; }
+  .network-mode .particles-container { display: none !important; }
   .nn-controls-rail {
     position: absolute;
     top: 5rem;

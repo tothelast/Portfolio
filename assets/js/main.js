@@ -176,6 +176,35 @@ const toggleHeaderMode = () => {
     const particlesContainer = document.getElementById('particles-js');
     const nnControls = document.getElementById('nnControls');
 
+    // Guard: disable neural network feature on small screens (<= 900px)
+    const networkUnavailable = window.innerWidth <= 900;
+    if (networkUnavailable) {
+        // If somehow in network mode, force switch back to traditional
+        if (isNetworkMode) {
+            isNetworkMode = false;
+
+            if (neuralNetworkCleanup) {
+                neuralNetworkCleanup();
+                neuralNetworkCleanup = null;
+            }
+
+            particlesContainer.innerHTML = '';
+            initializeParticlesJS();
+            if (nnControls) nnControls.style.display = 'none';
+            document.body.classList.remove('network-mode');
+            positionButtonForTraditional(hideBtn);
+            showTraditionalHeader();
+            if (hideBtn) {
+                hideBtn.innerHTML =
+                    '<span>Play With Neural Nets</span><i class="fas fa-brain"></i>';
+                applyButtonStyling(hideBtn);
+                attachButtonEvents(hideBtn);
+                hideBtn.style.display = 'none';
+            }
+        }
+        return; // Do not allow toggling into network mode on small screens
+    }
+
     if (isNetworkMode) {
         // Switch to traditional mode
         isNetworkMode = false;
@@ -384,8 +413,25 @@ const initializeHeaderToggle = () => {
         // Show traditional header elements since we start in traditional mode
         showTraditionalHeader();
 
+        // Hide button on small screens; show on larger
+        const updateButtonVisibility = () => {
+            if (window.innerWidth <= 900) {
+                hideBtn.style.display = 'none';
+                // If currently in network mode, force switch back
+                if (isNetworkMode) {
+                    toggleHeaderMode();
+                }
+            } else {
+                hideBtn.style.display = 'flex';
+            }
+        };
+
         // Attach event listeners
         attachButtonEvents(hideBtn);
+
+        // Initial visibility and resize handling
+        updateButtonVisibility();
+        window.addEventListener('resize', updateButtonVisibility);
     }
 };
 
